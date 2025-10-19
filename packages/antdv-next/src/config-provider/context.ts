@@ -199,11 +199,11 @@ function defaultGetPrefixCls(suffixCls?: string, customizePrefixCls?: string) {
 }
 
 export function useConfig() {
-  return inject(ConfigConsumerKey, ref<ConfigConsumerProps>({
+  return inject(ConfigConsumerKey, ref({
     // We provide a default function for Context without provider
     getPrefixCls: defaultGetPrefixCls,
     iconPrefixCls: defaultIconPrefixCls,
-  }))
+  }) as Ref<ConfigConsumerProps>)
 }
 
 /**

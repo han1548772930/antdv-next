@@ -1,4 +1,4 @@
-import type { App, Plugin, SlotsType, VNodeChild } from 'vue'
+import type { App, SlotsType, VNodeChild } from 'vue'
 import type { ConfigConsumerProps, Theme, ThemeConfig } from './context'
 import type { ConfigProviderEmits, ConfigProviderProps, ConfigProviderSlots } from './define'
 import { createTheme, useStyleContext } from '@antdv-next/cssinjs'
@@ -233,9 +233,7 @@ const ConfigProvider = defineComponent<
   app.component(ConfigProvider.name, ConfigProvider)
 }
 
-export default ConfigProvider as typeof ConfigProvider & Plugin & {
-  config: typeof setGlobalConfig
-}
+export default ConfigProvider
 
 export function globalConfig() {
   return {
