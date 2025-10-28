@@ -1,14 +1,25 @@
 <script setup lang="ts">
 import { CloseCircleOutlined, DeleteOutlined } from '@antdv-next/icons'
+import { shallowRef } from 'vue'
 
-function preventDefault(e: Event) {
-  e.preventDefault()
-  console.log('Clicked! But prevent default.')
+function preventDefault() {
+  console.log('Clicked! Default Not Close.')
+}
+const tag2 = shallowRef(true)
+function handleCloseTag2() {
+  tag2.value = false
+}
+const tag3 = shallowRef(true)
+function handleCloseTag3() {
+  tag3.value = false
+}
+function handleClick() {
+  console.log('click')
 }
 </script>
 
 <template>
-  <a-tag>
+  <a-tag @click="handleClick">
     Tag 1
   </a-tag>
 
@@ -24,16 +35,18 @@ function preventDefault(e: Event) {
   <a-tag close-icon @close="preventDefault">
     Prevent Default
   </a-tag>
-  <a-tag>
+  <a-tag v-if="tag2" @close="handleCloseTag2">
     <template #closeIcon>
       <CloseCircleOutlined />
     </template>
     Tag 2
   </a-tag>
   <a-tag
+    v-if="tag3"
     :closable="{
       'aria-label': 'Close Button',
     }"
+    @close="handleCloseTag3"
   >
     <template #closeIcon>
       <DeleteOutlined />

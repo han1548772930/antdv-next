@@ -130,7 +130,7 @@ const InternalTag = defineComponent<
         : children
       const mergedCloseIcon = closableInfo.value?.[1]
       const tagNode = (
-        <span {...attrs} class={tagClassName} style={tagStyle}>
+        <span {...attrs} class={tagClassName} style={tagStyle} onClick={props.onClick}>
           {kids}
           {mergedCloseIcon}
           {isPreset && <PresetCmp key="preset" prefixCls={prefixCls.value} />}
