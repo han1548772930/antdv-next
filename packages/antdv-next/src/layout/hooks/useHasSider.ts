@@ -1,5 +1,4 @@
-import type { VNode, VNodeChild } from 'vue'
-import { toArray } from 'es-toolkit/compat'
+import type { VNodeChild } from 'vue'
 
 export default function useHasSider(
   siders: string[],
@@ -12,7 +11,7 @@ export default function useHasSider(
   if (siders.length) {
     return true
   }
-  const childNodes = toArray(children)
+  const childNodes = Array.isArray(children) ? children : [children]
 
-  return childNodes.some((node: VNode) => node?.type === 'Sider')
+  return childNodes.some((node: any) => node?.type?.name === 'ALayoutSider')
 }

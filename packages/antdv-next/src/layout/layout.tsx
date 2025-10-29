@@ -21,13 +21,23 @@ export interface BasicProps extends ComponentBaseProps {
 interface BasicPropsWithTagName extends BasicProps {
   tagName: 'header' | 'footer' | 'main' | 'div'
 }
-
+const basicDefaultProps = {
+  hasSider: undefined,
+} as any
 function generator({ suffixCls, tagName, displayName }: GeneratorProps) {
   return (BasicComponent: any) => {
     return defineComponent<BasicProps>(
-      (props, { attrs, slots }) => {
+      (props = basicDefaultProps, { attrs, slots }) => {
         return () => {
-          return (<BasicComponent suffixCls={suffixCls} tagName={tagName} {...props} {...attrs} v-slots={slots} />)
+          return (
+            <BasicComponent
+              {...props}
+              suffixCls={props?.suffixCls ?? suffixCls}
+              tagName={tagName}
+              {...attrs}
+              v-slots={slots}
+            />
+          )
         }
       },
       {
@@ -39,7 +49,7 @@ function generator({ suffixCls, tagName, displayName }: GeneratorProps) {
 }
 
 const Basic = defineComponent<BasicPropsWithTagName>(
-  (props, { attrs, slots }) => {
+  (props = basicDefaultProps, { attrs, slots }) => {
     const { prefixCls } = useBaseConfig('layout', props)
     const [wrapSSR, hashId, cssVarCls] = useStyle(prefixCls)
 
@@ -65,7 +75,7 @@ const Basic = defineComponent<BasicPropsWithTagName>(
 )
 
 const BasicLayout = defineComponent<BasicPropsWithTagName>(
-  (props, { slots, attrs }) => {
+  (props = basicDefaultProps, { slots, attrs }) => {
     const { direction, prefixCls } = useBaseConfig('layout', props)
     const compCtx = useComponentConfig('layout')
     const siders = ref<string[]>([])

@@ -196,17 +196,17 @@ const Sider = defineComponent<
     const triggerDom
       = trigger != null
         ? zeroWidthTrigger || (
-          <div class={`${prefixCls.value}-trigger`} onClick={toggle} style={{ width: `${siderWidth.value}px` }}>
+          <div class={`${prefixCls.value}-trigger`} onClick={toggle} style={{ width: `${siderWidth.value}` }}>
             {trigger || defaultTrigger}
           </div>
         )
         : null
 
     const divStyle: CSSProperties = {
-      flex: `0 0 ${siderWidth.value}px`,
-      maxWidth: `${siderWidth.value}px`, // Fix width transition bug in IE11
-      minWidth: `${siderWidth.value}px`, // https://github.com/ant-design/ant-design/issues/6349
-      width: `${siderWidth.value}px`,
+      flex: `0 0 ${siderWidth.value}`,
+      maxWidth: `${siderWidth.value}`, // Fix width transition bug in IE11
+      minWidth: `${siderWidth.value}`, // https://github.com/ant-design/ant-design/issues/6349
+      width: `${siderWidth.value}`,
     }
 
     const siderCls = classNames(
