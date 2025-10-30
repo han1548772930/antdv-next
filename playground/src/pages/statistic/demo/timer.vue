@@ -30,7 +30,7 @@ function onChange(val?: number) {
     <a-col :span="12">
       <a-statistic-timer type="countup" title="Countup" :value="before" @change="onChange" />
     </a-col>
-    <a-col :span="24" :style="{ marginTop: 32 }">
+    <a-col :span="24" style="margin-top: 32px">
       <a-statistic-timer
         type="countdown"
         title="Day Level (Countdown)"
@@ -38,7 +38,7 @@ function onChange(val?: number) {
         format="D 天 H 时 m 分 s 秒"
       />
     </a-col>
-    <a-col :span="24" :style="{ marginTop: 32 }">
+    <a-col :span="24" style="margin-top: 32px">
       <a-statistic-timer
         type="countup"
         title="Day Level (Countup)"
@@ -48,7 +48,3 @@ function onChange(val?: number) {
     </a-col>
   </a-row>
 </template>
-
-<style scoped>
-
-</style>

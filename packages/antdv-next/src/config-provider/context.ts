@@ -5,6 +5,7 @@ import type { ShowWaveEffect } from '../_util/wave/interface.ts'
 import type { AlertProps } from '../alert'
 import type { BadgeProps } from '../badge'
 import type { ButtonProps } from '../button'
+import type { DescriptionsProps } from '../descriptions'
 import type { EmptyProps } from '../empty'
 import type { FlexProps } from '../flex'
 import type { Locale } from '../locale'
@@ -166,6 +167,8 @@ export type EmptyConfig = ComponentStyleConfig & Pick<EmptyProps, 'classes' | 's
 
 export type SpinConfig = ComponentStyleConfig & Pick<SpinProps, 'indicator'>
 
+export type DescriptionsConfig = ComponentStyleConfig & Pick<DescriptionsProps, 'styles' | 'classes'>
+
 export interface ConfigComponentProps {
   // input?: InputConfig;
   // textArea?: TextAreaConfig;
@@ -204,7 +207,7 @@ export interface ConfigComponentProps {
   breadcrumb?: ComponentStyleConfig
   // menu?: MenuConfig;
   checkbox?: ComponentStyleConfig
-  // descriptions?: DescriptionsConfig;
+  descriptions?: DescriptionsConfig
   empty?: EmptyConfig
   badge?: BadgeConfig
   radio?: ComponentStyleConfig
