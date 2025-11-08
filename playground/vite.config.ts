@@ -22,7 +22,7 @@ export default defineConfig({
     port: 3322,
   },
   optimizeDeps: {
-    exclude: ['@v-c/segmented', '@v-c/trigger', '@v-c/tooltip'],
+    exclude: ['@v-c/segmented', '@v-c/trigger', '@v-c/tooltip', '@v-c/util'],
   },
   resolve: {
     alias: [
