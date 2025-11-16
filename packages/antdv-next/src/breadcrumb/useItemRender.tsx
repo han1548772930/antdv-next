@@ -56,7 +56,6 @@ export function renderItem(
       </a>
     )
   }
-
   return (
     <span {...passedProps} class={clsx(`${prefixCls}-link`, className)}>
       {children}

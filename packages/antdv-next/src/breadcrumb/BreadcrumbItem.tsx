@@ -45,7 +45,7 @@ export interface BreadcrumbItemProps extends SeparatorType {
 export const InternalBreadcrumbItem = defineComponent<
   Omit<BreadcrumbItemProps, 'key'>
 >(
-  (props) => {
+  (props, { slots }) => {
     const breadcrumbContext = useBreadcrumbContext()
 
     /** If overlay is have Wrap a Dropdown */
@@ -90,7 +90,7 @@ export const InternalBreadcrumbItem = defineComponent<
     }
     return () => {
       const { separator = '/' } = props
-      const children = getSlotPropsFnRun(props, {}, 'children')
+      const children = checkRenderNode(filterEmpty(slots?.default?.() ?? []))
       const { classes: mergedClassNames, styles: mergedStyles } = breadcrumbContext.value
       // wrap to dropDown
       const link = renderBreadcrumbNode(children)
