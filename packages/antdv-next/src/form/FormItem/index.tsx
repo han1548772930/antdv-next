@@ -8,6 +8,7 @@ import type { ItemHolderProps } from './ItemHolder.tsx'
 import { clsx } from '@v-c/util'
 import { filterEmpty } from '@v-c/util/dist/props-util'
 import { computed, defineComponent, onBeforeUnmount, shallowRef, watch } from 'vue'
+import { checkRenderNode } from '../../_util/vueNode.ts'
 import { useComponentBaseConfig } from '../../config-provider/context'
 import useCSSVarCls from '../../config-provider/hooks/useCSSVarCls'
 import { useFormContext, useFormItemProvider, useNoStyleItemContext } from '../context.tsx'
@@ -401,7 +402,7 @@ const InternalFormItem = defineComponent<
       triggerFocus: onFieldFoucs,
     })
     return () => {
-      const children: any = filterEmpty(slots.default?.() ?? [])
+      const children: any = checkRenderNode(filterEmpty(slots.default?.() ?? []))
       return renderLayout(
         children,
         fieldId.value,
