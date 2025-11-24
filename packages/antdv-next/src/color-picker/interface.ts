@@ -1,5 +1,4 @@
 import type {
-  Color,
   ColorGenInput,
 } from '@v-c/color-picker'
 

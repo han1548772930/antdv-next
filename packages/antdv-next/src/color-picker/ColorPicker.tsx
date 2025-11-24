@@ -1,4 +1,4 @@
-import type { SlotsType } from 'vue'
+import type { App, SlotsType } from 'vue'
 import type { PopoverProps } from '../popover'
 import type { ColorFormatType, ColorPickerEmits, ColorPickerProps, ColorPickerSlots, ModeType } from './interface'
 import { clsx } from '@v-c/util'
@@ -7,7 +7,7 @@ import { computed, defineComponent, shallowRef, watch } from 'vue'
 import { ContextIsolator } from '../_util/ContextIsolator.tsx'
 import { getAttrStyleAndClass, useMergeSemantic, useToArr, useToProps } from '../_util/hooks'
 import { getStatusClassNames } from '../_util/statusUtils.ts'
-import { getSlotPropsFnRun, toPropsRefs } from '../_util/tools'
+import { toPropsRefs } from '../_util/tools'
 import { useComponentBaseConfig } from '../config-provider/context'
 import { useDisabledContext } from '../config-provider/DisabledContext'
 import useCSSVarCls from '../config-provider/hooks/useCSSVarCls'
@@ -167,7 +167,7 @@ const ColorPicker = defineComponent<
       cachedGradientColor.value = undefined
 
       emit('change', color, color.toCssString())
-      emit('update:value', color.toCssString())
+      emit('update:value', color)
 
       if (!changeFromPickerDrag) {
         onInternalChangeComplete(color)
@@ -234,8 +234,8 @@ const ColorPicker = defineComponent<
       } = props
       const { className, style, restAttrs } = getAttrStyleAndClass(attrs)
       const children = filterEmpty(slots?.default?.() ?? [])
-      const showText = getSlotPropsFnRun(slots, props, 'showText')
-      const panelRender = getSlotPropsFnRun(slots, props, 'panelRender')
+      const showText = slots?.showText ?? props?.showText
+      const panelRender = slots?.panelRender ?? props?.panelRender
       const rtlCls = {
         [`${prefixCls.value}-rtl`]: direction.value === 'rtl',
       }
@@ -319,7 +319,6 @@ const ColorPicker = defineComponent<
               color={mergedColor.value as any}
             />
           )
-
       return (
         <Popover
           classes={{ root: mergedPopupCls }}
@@ -341,5 +340,9 @@ const ColorPicker = defineComponent<
     inheritAttrs: false,
   },
 )
+
+;(ColorPicker as any).install = (app: App) => {
+  app.component(ColorPicker.name, ColorPicker)
+}
 
 export default ColorPicker
