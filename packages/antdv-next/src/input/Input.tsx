@@ -226,10 +226,10 @@ const InternalInput = defineComponent<
       emit('pressEnter', e)
     }
 
-    const triggerChange = (e: Parameters<NonNullable<VcInputProps['onChange']>>[0]) => {
+    const triggerChange = (e: any) => {
       const target = e?.target as HTMLInputElement | undefined
       emit('update:value', target?.value)
-      emit('change', e)
+      ;(props as any)?.onChange?.(e)
     }
 
     const handleClear = () => {
