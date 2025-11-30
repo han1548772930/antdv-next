@@ -111,6 +111,20 @@ const omitKeys: string[] = [
   'prefix',
   'suffix',
   'controls',
+  'onInput',
+  'onPressEnter',
+  'onStep',
+  'onBeforeInput',
+  'onClick',
+  'onMouseDown',
+  'onMouseUp',
+  'onMouseLeave',
+  'onMouseMove',
+  'onMouseEnter',
+  'onMouseOut',
+  'value',
+  'defaultValue',
+  'onChange',
 ]
 
 const InputNumber = defineComponent<
@@ -200,21 +214,6 @@ const InputNumber = defineComponent<
     const feedbackIcon = computed(() => formItemInputContext.value.feedbackIcon)
 
     const [mergedVariant, enableVariantCls] = useVariant('inputNumber', customVariant, bordered)
-
-    const prefixNode = getSlotPropsFnRun(slots, props, 'prefix')
-    const suffixSlot = getSlotPropsFnRun(slots, props, 'suffix')
-
-    const mergedSuffix = computed(() => {
-      if (hasFeedback.value) {
-        return (
-          <>
-            {suffixSlot}
-            {feedbackIcon.value}
-          </>
-        )
-      }
-      return suffixSlot
-    })
 
     const mergedProps = computed(() => {
       return {
@@ -319,10 +318,25 @@ const InputNumber = defineComponent<
     const handleBeforeInput: InputNumberEmits['beforeinput'] = e => emit('beforeinput', e)
 
     return () => {
+      const prefixNode = getSlotPropsFnRun(slots, props, 'prefix')
+      const suffixSlot = getSlotPropsFnRun(slots, props, 'suffix')
+      const mergedSuffixFn = () => {
+        if (hasFeedback.value) {
+          return (
+            <>
+              {suffixSlot}
+              {feedbackIcon.value}
+            </>
+          )
+        }
+        return suffixSlot
+      }
+      const mergedSuffix = mergedSuffixFn()
       const renderInputNode = () => (
         <VcInputNumber
           {...restAttrs}
           {...restProps}
+          value={props.value}
           ref={inputNumberRef as any}
           prefixCls={prefixCls.value}
           className={classesValue.value}
@@ -334,7 +348,7 @@ const InputNumber = defineComponent<
           upHandler={upIcon.value}
           downHandler={downIcon.value}
           prefix={prefixNode}
-          suffix={mergedSuffix.value}
+          suffix={mergedSuffix}
           onChange={handleChange}
           {
             ...{
