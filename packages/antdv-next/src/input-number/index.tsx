@@ -363,9 +363,9 @@ const InputNumber = defineComponent<
     if (hasLegacyAddon.value) {
       return (
         <SpaceCompact rootClass={rootClass.value}>
-          {renderAddon(getSlotPropsFnRun(slots, props, 'addonBefore') ?? props.addonBefore)}
+          {renderAddon(getSlotPropsFnRun(slots, props, 'addonBefore'))}
           {inputNode}
-          {renderAddon(getSlotPropsFnRun(slots, props, 'addonAfter') ?? props.addonAfter)}
+          {renderAddon(getSlotPropsFnRun(slots, props, 'addonAfter'))}
         </SpaceCompact>
       ) as any
     }
