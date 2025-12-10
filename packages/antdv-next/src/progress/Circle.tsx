@@ -1,6 +1,6 @@
-// import type { ProgressProps as VcProgressProps } from "@v-c/progress"
-
+import type { SlotsType } from 'vue'
 import type { SemanticClassNames, SemanticStyles } from '../_util/hooks'
+import type { EmptyEmit } from '../_util/type.ts'
 import type { ProgressProps, SemanticName } from './progress'
 import { Circle as VCCircle } from '@v-c/progress'
 import { clsx } from '@v-c/util'
@@ -29,7 +29,14 @@ const defaults = {
   strokeLinecap: 'round',
   width: 120,
 } as any
-const Circle = defineComponent<CircleProps>(
+const Circle = defineComponent<
+  CircleProps,
+  EmptyEmit,
+  string,
+  SlotsType<{
+    default?: () => any
+  }>
+>(
   (props = defaults, { slots }) => {
     const size = computed(() => props.size ?? props.width ?? 120)
 
@@ -107,7 +114,7 @@ const Circle = defineComponent<CircleProps>(
           gapDegree={realGapDegree.value}
           gapPosition={gapPos.value}
           classNames={omit(classes, OMIT_SEMANTIC_NAMES)}
-          styles={omit(classes, OMIT_SEMANTIC_NAMES) as any}
+          styles={omit(styles, OMIT_SEMANTIC_NAMES)}
         />
       )
       const smallCircle = width <= 20

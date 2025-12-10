@@ -87,5 +87,6 @@ declare module 'vue' {
     ACardMeta: typeof import('antdv-next')['CardMeta']
     AMasonry: typeof import('antdv-next')['Masonry']
     ARate: typeof import('antdv-next')['Rate']
+    AProgress: typeof import('antdv-next')['Progress']
   }
 }
