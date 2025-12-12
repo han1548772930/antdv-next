@@ -209,7 +209,6 @@ const Drawer = defineComponent<
           : customizeGetContainer
       const ariaLabelledby = restAttrs['aria-labelledby']
       const ariaId = rest.title ? id : undefined
-
       return (
         <ContextIsolator form space>
           <ZIndexProvider value={contextZIndex.value}>
