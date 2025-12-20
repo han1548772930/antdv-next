@@ -13,12 +13,12 @@ const treeData: TreeDataNode[] = [
         disabled: true,
         children: [
           {
-            title: 'leaf',
+            title: 'This is a very very very very long text',
             key: '0-0-0-0',
             disableCheckbox: true,
           },
           {
-            title: 'leaf',
+            title: 'This is also a very very very very very long text',
             key: '0-0-0-1',
           },
         ],
@@ -26,14 +26,16 @@ const treeData: TreeDataNode[] = [
       {
         title: 'parent 1-1',
         key: '0-0-1',
-        children: [{ title: 'sss', key: '0-0-1-0' }],
+        children: [{ key: '0-0-1-0' }],
       },
     ],
   },
 ]
+
 const expandedKeys = ref(['0-0-0', '0-0-1'])
 const selectedKeys = ref(['0-0-1'])
 const checkedKeys = ref(['0-0-0', '0-0-1'])
+
 const onSelect: TreeEmits['select'] = (selectedKeys, info) => {
   console.log('selected', selectedKeys, info)
 }
@@ -50,12 +52,13 @@ const onCheck: TreeEmits['check'] = (checkedKeys, info) => {
     v-model:checked-keys="checkedKeys"
     checkable
     :tree-data="treeData"
+    :style="{ width: '200px' }"
     @select="onSelect"
     @check="onCheck"
   >
-    <template #titleRender="{ key, title }">
+    <template #titleRender="{ key }">
       <template v-if="key === '0-0-1-0'">
-        <span style="color: #1677ff">{{ title }}</span>
+        <span style="color: #1677ff">sss</span>
       </template>
     </template>
   </a-tree>

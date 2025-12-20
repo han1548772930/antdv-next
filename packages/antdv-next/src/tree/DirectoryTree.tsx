@@ -1,4 +1,4 @@
-import type { BasicDataNode, DataNode, EventDataNode, Key, TreeProps as VcTreeProps } from '@v-c/tree'
+import type { BasicDataNode, DataNode, EventDataNode, Key } from '@v-c/tree'
 import type { SlotsType } from 'vue'
 import type { AntdTreeNodeAttribute, TreeEmits, TreeProps, TreeSlots } from './Tree.tsx'
 import { FileOutlined, FolderOpenOutlined, FolderOutlined } from '@antdv-next/icons'
@@ -20,6 +20,12 @@ export interface DirectoryTreeProps<T extends BasicDataNode = DataNode> extends 
 export interface DirectoryTreeEmits extends TreeEmits {
 
 }
+
+export type DirectoryTreeEmitsMap<T extends Record<string, any>> = {
+  [K in keyof T as `on${Capitalize<K & string>}`]: T[K]
+}
+
+export type DirectoryTreeEmitsType = DirectoryTreeEmitsMap<DirectoryTreeEmits>
 export interface DirectoryTreeSlots extends TreeSlots {}
 
 function getIcon(props: AntdTreeNodeAttribute) {
@@ -188,7 +194,7 @@ const DirectoryTree = defineComponent<
         },
         className,
       )
-      const onAttrs: Partial<VcTreeProps> = {
+      const onAttrs: Partial<DirectoryTreeEmitsType> = {
         onCheck(checked, info) {
           emit('check', checked, info)
           emit('update:checkedKeys', checked)
@@ -212,26 +218,26 @@ const DirectoryTree = defineComponent<
         onDrop(info) {
           emit('drop', info)
         },
-        onDragEnd(info) {
+        onDragend(info) {
           emit('dragend', info)
         },
-        onDragEnter(info) {
+        onDragenter(info) {
           emit('dragenter', info)
         },
-        onDragLeave(info) {
+        onDragleave(info) {
           emit('dragleave', info)
         },
-        onDragOver(info) {
+        onDragover(info) {
           emit('dragover', info)
         },
         onDoubleClick(e) {
           emit('doubleClick', e)
           emit('dblclick', e)
         },
-        onContextMenu(e) {
+        onContextmenu(e) {
           emit('contextmenu', e)
         },
-        onKeyDown(e) {
+        onKeydown(e) {
           emit('keydown', e)
         },
         onScroll(e) {
@@ -240,13 +246,13 @@ const DirectoryTree = defineComponent<
         onRightClick(info) {
           emit('rightClick', info)
         },
-        onDragStart(info) {
+        onDragstart(info) {
           emit('dragstart', info)
         },
-        onMouseEnter(e) {
+        onMouseenter(e) {
           emit('mouseenter', e)
         },
-        onMouseLeave(e) {
+        onMouseleave(e) {
           emit('mouseleave', e)
         },
       }
@@ -255,10 +261,10 @@ const DirectoryTree = defineComponent<
         <Tree
           ref={treeRef}
           {...restAttrs}
-          icon={getIcon}
-          blockNode
           {...omit(otherProps, ['prefixCls'])}
           {...onAttrs as any}
+          icon={props?.icon ?? getIcon}
+          blockNode={props?.blockNode ?? true}
           showIcon={showIcon}
           expandAction={expandAction}
           prefixCls={prefixCls.value}

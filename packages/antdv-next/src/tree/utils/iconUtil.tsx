@@ -59,7 +59,10 @@ const SwitcherIconCom = defineComponent<SwitcherIconProps>(
       }
 
       const switcherCls = `${prefixCls}-switcher-icon`
-      const switcher = typeof switcherIcon === 'function' ? switcherIcon(treeNodeProps) : switcherIcon
+      let switcher = typeof switcherIcon === 'function' ? switcherIcon(treeNodeProps) : switcherIcon
+      if (Array.isArray(switcher) && switcher.length === 1) {
+        switcher = switcher[0]
+      }
       if (isVNode(switcher)) {
         return createVNode(switcher, {
           class: switcherCls,

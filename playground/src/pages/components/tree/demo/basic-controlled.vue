@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { TreeDataNode, TreeEmits } from 'antdv-next'
-import { shallowRef } from 'vue'
+import { ref } from 'vue'
 
 const treeData: TreeDataNode[] = [
   {
@@ -46,10 +46,10 @@ const treeData: TreeDataNode[] = [
   },
 ]
 
-const expandedKeys = shallowRef<(string | number)[]>(['0-0-0', '0-0-1'])
-const checkedKeys = shallowRef<(string | number)[]>(['0-0-0'])
-const selectedKeys = shallowRef<(string | number)[]>([])
-const autoExpandParent = shallowRef(true)
+const expandedKeys = ref<(string | number)[]>(['0-0-0', '0-0-1'])
+const checkedKeys = ref<(string | number)[]>(['0-0-0'])
+const selectedKeys = ref<(string | number)[]>([])
+const autoExpandParent = ref(true)
 
 const onExpand: TreeEmits['expand'] = (expandedKeysValue) => {
   console.log('onExpand', expandedKeysValue)

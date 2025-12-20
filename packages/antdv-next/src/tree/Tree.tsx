@@ -212,6 +212,9 @@ export interface TreeEmits {
   'check': NonNullable<VcTreeProps['onCheck']>
   'expand': NonNullable<VcTreeProps['onExpand']>
   'select': NonNullable<VcTreeProps['onSelect']>
+  'blur': NonNullable<VcTreeProps['onBlur']>
+  'focus': NonNullable<VcTreeProps['onFocus']>
+  'rightClick': NonNullable<VcTreeProps['onRightClick']>
   'dblclick': NonNullable<VcTreeProps['onDoubleClick']>
   'doubleClick': NonNullable<VcTreeProps['onDoubleClick']>
   'contextmenu': NonNullable<VcTreeProps['onContextMenu']>

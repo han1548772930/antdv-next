@@ -231,7 +231,7 @@ const InternalInput = defineComponent<
     const triggerChange = (e: any) => {
       const target = e?.target as HTMLInputElement | undefined
       emit('update:value', target?.value)
-      ;(props as any)?.onChange?.(e)
+      emit('change', e)
     }
 
     const handleClear = () => {
