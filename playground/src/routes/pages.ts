@@ -6,14 +6,7 @@ export const pagesRoutes: RouteRecordRaw[] = [
     component: () => import('@/pages/index.vue'),
   },
   {
-    path: '/icons',
-    component: () => import('@/pages/components/icons/index.vue'),
-  },
-  {
-    path: '/components',
-    component: () => import('@/layouts/docs/index.vue'),
-    children: [
-
-    ],
+    path: '/index-cn',
+    component: () => import('@/pages/index.vue'),
   },
 ]

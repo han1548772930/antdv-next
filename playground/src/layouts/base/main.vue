@@ -44,7 +44,7 @@ const handleChangeMenu: MenuEmits['click'] = (info) => {
       <section class="ant-doc-main-section">
         <a-anchor :items="anchorItems" class="ant-doc-main-sider-anchor" :offset-top="70" :affix="false" />
       </section>
-      <article class="pl-48px pr-164px pb-32px">
+      <article class="pl-48px pr-164px pb-32px mt--16px">
         <slot />
       </article>
     </a-col>

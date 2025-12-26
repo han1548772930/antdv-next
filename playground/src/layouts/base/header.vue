@@ -3,7 +3,7 @@ import type { MenuEmits } from 'antdv-next'
 import { GithubOutlined } from '@antdv-next/icons'
 import { storeToRefs } from 'pinia'
 import { ref, shallowRef, watch } from 'vue'
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import DirectionIcon from '@/components/icons/directionIcon.vue'
 import SearchIcon from '@/components/icons/search.vue'
 import { useMobile } from '@/composables/mobile'
@@ -23,8 +23,11 @@ const versions = ref([
 const { isMobile } = useMobile()
 const currentVersion = shallowRef('1.0.0')
 const searchValue = shallowRef()
+const router = useRouter()
 const handleHeaderChange: MenuEmits['click'] = (info) => {
-  appStore.setHeaderKey([info.key])
+  const key = info.key
+  router.push(key)
+  appStore.setHeaderKey([key])
 }
 
 const itemKeys = headerItems.map(item => item?.key).filter(Boolean) as string[]
