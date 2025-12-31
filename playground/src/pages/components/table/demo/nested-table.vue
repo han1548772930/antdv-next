@@ -9,7 +9,6 @@ Nested table.
 <script setup lang="ts">
 import type { TableProps } from 'antdv-next'
 import { DownOutlined } from '@antdv-next/icons'
-import { h, resolveComponent } from 'vue'
 
 interface ExpandedDataType {
   key: string
@@ -68,83 +67,120 @@ const dataSource: DataType[] = Array.from({ length: 3 }).map((_, i) => ({
   createdAt: '2014-12-24 23:12:00',
 }))
 
-const ATable = resolveComponent('ATable') as any
-const ABadge = resolveComponent('ABadge') as any
-const ADropdown = resolveComponent('ADropdown') as any
-const ASpace = resolveComponent('ASpace') as any
-
-function renderInnerBodyCell({ column }: { column: any }) {
-  if (column.key === 'state') {
-    return h(ABadge, { status: 'success', text: 'Finished' })
-  }
-  if (column.key === 'operation') {
-    return h(ASpace, { size: 'middle' }, {
-      default: () => [
-        h('a', 'Pause'),
-        h('a', 'Stop'),
-        h(
-          ADropdown,
-          { menu: { items } },
-          { default: () => h('a', ['More ', h(DownOutlined)]) },
-        ),
-      ],
-    })
-  }
-  return undefined
-}
-
-function renderOuterBodyCell({ column }: { column: any }) {
-  if (column.key === 'operation') {
-    return h('a', 'Publish')
-  }
-  return undefined
-}
-
-const innerTableSlots = {
-  bodyCell: renderInnerBodyCell,
-}
-
-const tableSlots = {
-  bodyCell: renderOuterBodyCell,
-}
-
-function expandedRowRender() {
-  return h(
-    ATable,
-    {
-      columns: expandColumns,
-      dataSource: expandDataSource,
-      pagination: false,
-    },
-    innerTableSlots,
-  )
-}
-
 const expandable = {
-  expandedRowRender,
   defaultExpandedRowKeys: ['0'],
 }
 </script>
 
 <template>
-  <ATable
-    v-slots="tableSlots"
+  <a-table
     :columns="columns"
     :data-source="dataSource"
     :expandable="expandable"
-  />
-  <ATable
-    v-slots="tableSlots"
+  >
+    <template #expandedRowRender>
+      <a-table
+        :columns="expandColumns"
+        :data-source="expandDataSource"
+        :pagination="false"
+      >
+        <template #bodyCell="{ column }">
+          <template v-if="column.key === 'state'">
+            <a-badge status="success" text="Finished" />
+          </template>
+          <template v-else-if="column.key === 'operation'">
+            <a-space size="middle">
+              <a>Pause</a>
+              <a>Stop</a>
+              <a-dropdown :menu="{ items }">
+                <a>
+                  More
+                  <DownOutlined />
+                </a>
+              </a-dropdown>
+            </a-space>
+          </template>
+        </template>
+      </a-table>
+    </template>
+    <template #bodyCell="{ column }">
+      <template v-if="column.key === 'operation'">
+        <a>Publish</a>
+      </template>
+    </template>
+  </a-table>
+  <a-table
     :columns="columns"
     :data-source="dataSource"
     :expandable="expandable"
     size="middle"
-  />
-  <ATable
-    v-slots="tableSlots"
+  >
+    <template #expandedRowRender>
+      <a-table
+        :columns="expandColumns"
+        :data-source="expandDataSource"
+        :pagination="false"
+      >
+        <template #bodyCell="{ column }">
+          <template v-if="column.key === 'state'">
+            <a-badge status="success" text="Finished" />
+          </template>
+          <template v-else-if="column.key === 'operation'">
+            <a-space size="middle">
+              <a>Pause</a>
+              <a>Stop</a>
+              <a-dropdown :menu="{ items }">
+                <a>
+                  More
+                  <DownOutlined />
+                </a>
+              </a-dropdown>
+            </a-space>
+          </template>
+        </template>
+      </a-table>
+    </template>
+    <template #bodyCell="{ column }">
+      <template v-if="column.key === 'operation'">
+        <a>Publish</a>
+      </template>
+    </template>
+  </a-table>
+  <a-table
     :columns="columns"
     :data-source="dataSource"
     :expandable="expandable"
     size="small"
-  />
+  >
+    <template #expandedRowRender>
+      <a-table
+        :columns="expandColumns"
+        :data-source="expandDataSource"
+        :pagination="false"
+      >
+        <template #bodyCell="{ column }">
+          <template v-if="column.key === 'state'">
+            <a-badge status="success" text="Finished" />
+          </template>
+          <template v-else-if="column.key === 'operation'">
+            <a-space size="middle">
+              <a>Pause</a>
+              <a>Stop</a>
+              <a-dropdown :menu="{ items }">
+                <a>
+                  More
+                  <DownOutlined />
+                </a>
+              </a-dropdown>
+            </a-space>
+          </template>
+        </template>
+      </a-table>
+    </template>
+    <template #bodyCell="{ column }">
+      <template v-if="column.key === 'operation'">
+        <a>Publish</a>
+      </template>
+    </template>
+  </a-table>
 </template>
