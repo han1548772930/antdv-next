@@ -404,6 +404,9 @@ importers:
       vite:
         specifier: ^8.0.0-beta.5
         version: 8.0.0-beta.5(@types/node@24.10.4)(esbuild@0.25.12)(jiti@2.6.1)(less@4.5.1)(terser@5.44.1)(tsx@4.21.0)(yaml@2.8.2)
+      vite-plugin-dayjs:
+        specifier: ^1.0.0
+        version: 1.0.0
       vite-plugin-inspect:
         specifier: 'catalog:'
         version: 11.3.3(vite@8.0.0-beta.5(@types/node@24.10.4)(esbuild@0.25.12)(jiti@2.6.1)(less@4.5.1)(terser@5.44.1)(tsx@4.21.0)(yaml@2.8.2))
@@ -5217,6 +5220,9 @@ packages:
     resolution: {integrity: sha512-EbKSKh+bh1E1IFxeO0pg1n4dvoOTt0UDiXMd/qn++r98+jPO1xtJilvXldeuQ8giIB5IkpjCgMleHMNEsGH6pg==}
     engines: {node: ^18.0.0 || ^20.0.0 || >=22.0.0}
     hasBin: true
+
+  vite-plugin-dayjs@1.0.0:
+    resolution: {integrity: sha512-XV577Qe/8udq9dl7MwQfwkEokyoCDjbhvrRF1DLHyndmL7wOLjhn/KcMy4NlfVa7uwI/bh440cVDMUebNuoAvw==}
 
   vite-plugin-inspect@11.3.3:
     resolution: {integrity: sha512-u2eV5La99oHoYPHE6UvbwgEqKKOQGz86wMg40CCosP6q8BkB6e5xPneZfYagK4ojPJSj5anHCrnvC20DpwVdRA==}
@@ -10521,6 +10527,8 @@ snapshots:
       - terser
       - tsx
       - yaml
+
+  vite-plugin-dayjs@1.0.0: {}
 
   vite-plugin-inspect@11.3.3(vite@8.0.0-beta.5(@types/node@24.10.4)(esbuild@0.25.12)(jiti@2.6.1)(less@4.5.1)(terser@5.44.1)(tsx@4.21.0)(yaml@2.8.2)):
     dependencies:

@@ -4,6 +4,7 @@ import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
 import Unocss from 'unocss/vite'
 import { defineConfig } from 'vite'
+import dayjsPlugin from 'vite-plugin-dayjs'
 import inspect from 'vite-plugin-inspect'
 
 import { tsxResolveTypes } from 'vite-plugin-tsx-resolve-types'
@@ -14,6 +15,7 @@ const baseUrl = fileURLToPath(new URL('.', import.meta.url))
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [
+    dayjsPlugin(),
     mdPlugin(),
     tsxResolveTypes({
       defaultPropsToUndefined: true,
@@ -40,6 +42,7 @@ export default defineConfig({
       '@v-c/input-number',
       '@v-c/textarea',
       '@v-c/select',
+      '@v-c/picker',
     ],
   },
   resolve: {
