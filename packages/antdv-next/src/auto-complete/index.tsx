@@ -345,6 +345,7 @@ const InternalAutoComplete = defineComponent<
           {...selectProps}
           {...onAttrs}
           {...inputProps}
+          prefixCls={prefixCls.value}
           classes={finalClassNames as any}
           styles={finalStyles as any}
           style={style}
