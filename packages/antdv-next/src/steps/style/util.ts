@@ -11,15 +11,10 @@ function withoutVar(cssVar: any): string {
  * Force override the width related styles.
  * This should be multiple since will conflict with other `rail` styles.
  */
-export function getItemWithWidthStyle(
-  token: StepsToken,
-  marginSize: number,
-  optionalStyle?: CSSObject,
-): CSSObject {
+export function getItemWithWidthStyle(token: StepsToken, marginSize: number, optionalStyle?: CSSObject): CSSObject {
   const { calc, componentCls, descriptionMaxWidth, antCls } = token
   const itemCls = `${componentCls}-item`
   const [, varRef] = genCssVar(antCls, 'cmp-steps')
-
   return {
     [`@container style(${withoutVar(descriptionMaxWidth)})`]: [
       {

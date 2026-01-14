@@ -213,125 +213,117 @@ const genStatusStyle: GenerateStyle<StepsToken, CSSObject> = (token) => {
         [`${itemCls}-${STATUS_ERROR}`]: {
           [varName('item-icon-custom-color')]: colorError,
           [varName('item-title-color')]: colorError,
-          [varName('item-content-color')]: colorTextDescription,
-          [varName('item-content-active-color')]: colorText,
+          [varName('item-content-color')]: colorError,
+          [varName('item-content-active-color')]: colorError,
           [varName('item-text-hover-color')]: colorErrorHover,
         },
         [`${itemCls}-rail-${STATUS_ERROR}`]: {
-          [varName('item-solid-line-color')]: colorTextDisabled,
+          [varName('item-solid-line-color')]: colorError,
         },
       },
       {
-        // ========================= Normal ==========================
-        [`${itemCls}-${STATUS_WAIT}`]: {
-          [varName('item-icon-text-color')]: colorTextLabel,
-          [varName('item-icon-bg-color')]: colorBgContainer,
-          [varName('item-icon-border-color')]: colorTextDisabled,
-          [varName('item-icon-dot-color')]: colorTextDisabled,
-        },
-
-        [`${itemCls}-${STATUS_PROCESS}`]: {
-          [varName('item-icon-text-color')]: colorTextLightSolid,
-          [varName('item-icon-bg-color')]: colorPrimary,
-          [varName('item-icon-border-color')]: colorPrimary,
-          [varName('item-icon-dot-color')]: colorPrimary,
-        },
-
-        [`${itemCls}-${STATUS_FINISH}`]: {
-          [varName('item-icon-text-color')]: colorPrimary,
-          [varName('item-icon-bg-color')]: colorBgContainer,
-          [varName('item-icon-border-color')]: colorPrimary,
-          [varName('item-icon-dot-color')]: colorPrimary,
-        },
-
-        [`${itemCls}-${STATUS_ERROR}`]: {
-          [varName('item-icon-text-color')]: colorError,
-          [varName('item-icon-bg-color')]: colorBgContainer,
-          [varName('item-icon-border-color')]: colorError,
-          [varName('item-icon-dot-color')]: colorError,
-        },
-      },
-      {
-        // ========================= Outline =========================
+        // ========================== Filled ==========================
         [`&${componentCls}-filled`]: {
+          [itemCls]: {
+            [varName('item-icon-dot-border-color')]: 'transparent',
+          },
+
+          // Wait
           [`${itemCls}-${STATUS_WAIT}`]: {
-            [varName('item-icon-text-color')]: colorTextDisabled,
             [varName('item-icon-bg-color')]: colorFillTertiary,
-            [varName('item-icon-border-color')]: colorFillTertiary,
+            [varName('item-icon-border-color')]: 'transparent',
+            [varName('item-icon-text-color')]: colorTextLabel,
+            [varName('item-icon-dot-bg-color')]: colorTextDisabled,
+            // Hover
+            [varName('item-icon-bg-hover-color')]: colorPrimaryBgHover,
+            [varName('item-icon-border-hover-color')]: 'transparent',
+            [varName('item-icon-text-hover-color')]: colorPrimary,
+            // Active
+            [varName('item-icon-active-bg-color')]: colorPrimary,
+            [varName('item-icon-active-border-color')]: 'transparent',
+            [varName('item-icon-active-text-color')]: colorTextLightSolid,
           },
 
-          [`${itemCls}-${STATUS_PROCESS}`]: {
-            [varName('item-icon-text-color')]: colorTextLightSolid,
-            [varName('item-icon-bg-color')]: colorPrimary,
-            [varName('item-icon-border-color')]: colorPrimary,
-          },
-
-          [`${itemCls}-${STATUS_FINISH}`]: {
-            [varName('item-icon-text-color')]: colorPrimary,
+          // Finish & Process
+          [`${itemCls}-${STATUS_PROCESS}, ${itemCls}-${STATUS_FINISH}`]: {
             [varName('item-icon-bg-color')]: colorPrimaryBg,
-            [varName('item-icon-border-color')]: colorPrimaryBg,
+            [varName('item-icon-border-color')]: 'transparent',
+            [varName('item-icon-text-color')]: colorPrimary,
+            [varName('item-icon-dot-bg-color')]: colorPrimary,
+            // Hover
+            [varName('item-icon-bg-hover-color')]: colorPrimaryBgHover,
+            [varName('item-icon-border-hover-color')]: 'transparent',
+            [varName('item-icon-text-hover-color')]: colorPrimary,
+            // Active
+            [varName('item-icon-active-bg-color')]: colorPrimary,
+            [varName('item-icon-active-border-color')]: 'transparent',
+            [varName('item-icon-active-text-color')]: colorTextLightSolid,
           },
 
+          // Error
           [`${itemCls}-${STATUS_ERROR}`]: {
-            [varName('item-icon-text-color')]: colorError,
             [varName('item-icon-bg-color')]: colorErrorBg,
-            [varName('item-icon-border-color')]: colorErrorBg,
+            [varName('item-icon-border-color')]: 'transparent',
+            [varName('item-icon-text-color')]: colorError,
+            [varName('item-icon-dot-bg-color')]: colorError,
+            // Hover
+            [varName('item-icon-bg-hover-color')]: colorErrorBgFilledHover,
+            [varName('item-icon-border-hover-color')]: 'transparent',
+            [varName('item-icon-text-hover-color')]: colorError,
+            // Active
+            [varName('item-icon-active-bg-color')]: colorError,
+            [varName('item-icon-active-border-color')]: 'transparent',
+            [varName('item-icon-active-text-color')]: colorTextLightSolid,
           },
         },
-
-        // ========================= Filled =========================
+      },
+      {
+        // ========================= Outlined =========================
         [`&${componentCls}-outlined`]: {
+          [itemCls]: {
+            [varName('item-icon-dot-bg-color')]: 'transparent',
+          },
+
+          // Wait
           [`${itemCls}-${STATUS_WAIT}`]: {
-            [varName('item-icon-text-color')]: colorTextDisabled,
             [varName('item-icon-bg-color')]: colorBgContainer,
             [varName('item-icon-border-color')]: colorTextDisabled,
+            [varName('item-icon-text-color')]: colorTextDisabled,
+            [varName('item-icon-dot-color')]: colorTextDisabled,
+            // Hover
+            [varName('item-icon-bg-hover-color')]: 'transparent',
+            [varName('item-icon-border-hover-color')]: colorPrimaryHover,
+            [varName('item-icon-text-hover-color')]: colorPrimaryHover,
+            // Active
+            [varName('item-icon-active-bg-color')]: colorFillTertiary,
           },
 
-          [`${itemCls}-${STATUS_PROCESS}`]: {
-            [varName('item-icon-text-color')]: colorTextLightSolid,
-            [varName('item-icon-bg-color')]: colorPrimary,
-            [varName('item-icon-border-color')]: colorPrimary,
-          },
-
-          [`${itemCls}-${STATUS_FINISH}`]: {
-            [varName('item-icon-text-color')]: colorPrimary,
+          // Finish & Process
+          [`${itemCls}-${STATUS_PROCESS}, ${itemCls}-${STATUS_FINISH}`]: {
             [varName('item-icon-bg-color')]: colorBgContainer,
             [varName('item-icon-border-color')]: colorPrimary,
+            [varName('item-icon-text-color')]: colorPrimary,
+            [varName('item-icon-dot-color')]: colorPrimary,
+            // Hover
+            [varName('item-icon-bg-hover-color')]: 'transparent',
+            [varName('item-icon-border-hover-color')]: colorPrimaryHover,
+            [varName('item-icon-text-hover-color')]: colorPrimaryHover,
+            // Active
+            [varName('item-icon-active-bg-color')]: colorPrimaryBg,
           },
 
+          // Error
           [`${itemCls}-${STATUS_ERROR}`]: {
-            [varName('item-icon-text-color')]: colorError,
             [varName('item-icon-bg-color')]: colorBgContainer,
             [varName('item-icon-border-color')]: colorError,
-          },
-        },
-      },
-      {
-        // ========================= Panel ==========================
-        [`&${componentCls}-panel`]: {
-          [`${itemCls}`]: {
-            [varName('item-solid-line-color')]: colorTextDisabled,
-          },
-        },
-      },
-      {
-        // ========================= Inline =========================
-        [`&${componentCls}-inline`]: {
-          [`${itemCls}-${STATUS_WAIT}`]: {
-            [varName('item-icon-border-color')]: colorTextDisabled,
-            [varName('item-title-color')]: colorTextDisabled,
-          },
-
-          [`${itemCls}-${STATUS_PROCESS}`]: {
-            [varName('item-title-color')]: colorText,
-          },
-
-          [`${itemCls}-${STATUS_FINISH}`]: {
-            [varName('item-icon-border-color')]: colorPrimaryBgHover,
-          },
-
-          [`${itemCls}-${STATUS_ERROR}`]: {
-            [varName('item-icon-border-color')]: colorErrorBgFilledHover,
+            [varName('item-icon-text-color')]: colorError,
+            [varName('item-icon-dot-color')]: colorError,
+            // Hover
+            [varName('item-icon-bg-hover-color')]: 'transparent',
+            [varName('item-icon-border-hover-color')]: colorErrorHover,
+            [varName('item-icon-text-hover-color')]: colorErrorHover,
+            // Active
+            [varName('item-icon-active-bg-color')]: colorErrorBg,
           },
         },
       },

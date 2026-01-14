@@ -198,30 +198,33 @@ export const prepareComponentToken: GetDefaultToken<'Steps'> = token => ({
   dotCurrentSize: token.controlHeightLG / 4,
   navArrowColor: token.colorTextDisabled,
   navContentMaxWidth: 'unset',
+  descriptionMaxWidth: undefined, // should be `undefined` to create css var
+  waitIconColor: token.wireframe ? token.colorTextDisabled : token.colorTextLabel,
+  waitIconBgColor: token.wireframe ? token.colorBgContainer : token.colorFillContent,
+  waitIconBorderColor: token.wireframe ? token.colorTextDisabled : 'transparent',
+  finishIconBgColor: token.wireframe ? token.colorBgContainer : token.controlItemBgActive,
+  finishIconBorderColor: token.wireframe ? token.colorPrimary : token.controlItemBgActive,
 })
-
-export const prepareToken: GetDefaultToken<'Steps'> = token =>
-  mergeToken<StepsToken>(token, {
-    inlineDotSize: token.controlHeightSM / 2,
-  })
 
 export default genStyleHooks(
   'Steps',
   (token) => {
-    const stepsToken = prepareToken(token)
+    const stepsToken = mergeToken<StepsToken>(token, {
+      inlineDotSize: 6,
+    })
     return [
       genBasicStyle(stepsToken),
       genIconStyle(stepsToken),
-      genHorizontalStyle(stepsToken),
       genVerticalStyle(stepsToken),
+      genHorizontalStyle(stepsToken),
       genLabelPlacementStyle(stepsToken),
-      genDotStyle(stepsToken),
-      genStepsProgressStyle(stepsToken),
       genSmallStyle(stepsToken),
-      genPanelStyle(stepsToken),
-      genInlineStyle(stepsToken),
+      genDotStyle(stepsToken),
       genStatusStyle(stepsToken),
       genLegacyNavStyle(stepsToken),
+      genPanelStyle(stepsToken),
+      genInlineStyle(stepsToken),
+      genStepsProgressStyle(stepsToken),
       genRTLStyle(stepsToken),
     ]
   },
