@@ -1,3 +1,11 @@
+<docs lang="zh-CN">
+分段展示进度，可以用于细化进度语义。
+</docs>
+
+<docs lang="en-US">
+Show several parts of progress with different status.
+</docs>
+
 <template>
   <a-flex gap="small" vertical>
     <a-tooltip title="3 done / 3 in progress / 4 to do">

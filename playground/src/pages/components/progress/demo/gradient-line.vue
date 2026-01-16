@@ -1,3 +1,11 @@
+<docs lang="zh-CN">
+渐变色封装，`circle` 与 `dashboard` 设置渐变时 `strokeLinecap` 会被忽略。
+</docs>
+
+<docs lang="en-US">
+Gradient encapsulation, `circle` and `dashboard` will ignore `strokeLinecap` when setting gradient.
+</docs>
+
 <script setup lang="ts">
 const twoColors = {
   '0%': '#108ee9',

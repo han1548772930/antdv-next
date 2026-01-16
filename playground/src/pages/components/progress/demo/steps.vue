@@ -1,3 +1,11 @@
+<docs lang="zh-CN">
+带步骤的进度条。
+</docs>
+
+<docs lang="en-US">
+A progress bar with steps.
+</docs>
+
 <script setup lang="ts">
 import { green, red } from '@ant-design/colors'
 </script>

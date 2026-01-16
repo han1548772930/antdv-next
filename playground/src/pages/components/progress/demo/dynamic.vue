@@ -1,3 +1,11 @@
+<docs lang="zh-CN">
+会动的进度条才是好进度条。
+</docs>
+
+<docs lang="en-US">
+A dynamic progress bar is better.
+</docs>
+
 <script setup lang="ts">
 import { MinusOutlined, PlusOutlined } from '@antdv-next/icons'
 import { ref } from 'vue'

@@ -1,3 +1,11 @@
+<docs lang="zh-CN">
+标准的进度条。
+</docs>
+
+<docs lang="en-US">
+A standard progress bar.
+</docs>
+
 <template>
   <a-flex gap="small" vertical>
     <a-progress :percent="30" />

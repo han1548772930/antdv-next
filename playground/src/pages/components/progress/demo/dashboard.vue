@@ -1,8 +1,18 @@
+<docs lang="zh-CN">
+通过设置 `type="dashboard"`，可以很方便地实现仪表盘样式的进度条。
+</docs>
+
+<docs lang="en-US">
+By setting `type="dashboard"`, you can get a dashboard style of progress easily.
+</docs>
+
 <script setup lang="ts">
-import type { ProgressGapPlacement } from '../../../../../packages/antdv-next/src/components'
+import type { ProgressProps } from 'antdv-next'
 import { ref } from 'vue'
 
-const gapPlacement = ref<ProgressGapPlacement>('bottom')
+type GapPlacement = NonNullable<ProgressProps['gapPlacement']>
+
+const gapPlacement = ref<GapPlacement>('bottom')
 const gapDegree = ref<number>(50)
 </script>
 

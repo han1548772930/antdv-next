@@ -1,3 +1,11 @@
+<docs lang="zh-CN">
+进度条尺寸。
+</docs>
+
+<docs lang="en-US">
+The size of progress.
+</docs>
+
 <template>
   <a-flex vertical gap="middle">
     <a-flex vertical gap="small" style="width: 300px">
