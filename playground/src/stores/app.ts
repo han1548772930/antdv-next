@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { localeStore } from '@/composables/locale.ts'
+import { compactModeStore, darkModeStore, localeStore } from '@/composables/local-store'
 import { menusMap } from '@/config/menu'
 
 export interface AppState {
@@ -7,6 +7,8 @@ export interface AppState {
   siderKey: string[]
   siderOpenKeys: string[]
   locale: 'zh-CN' | 'en-US'
+  darkMode: boolean
+  compactMode: boolean
 }
 
 export const useAppStore = defineStore('app', {
@@ -16,6 +18,8 @@ export const useAppStore = defineStore('app', {
       siderKey: [],
       siderOpenKeys: [],
       locale: localeStore.value,
+      darkMode: darkModeStore.value ?? false,
+      compactMode: compactModeStore.value ?? false,
     }
   },
   actions: {
@@ -31,6 +35,14 @@ export const useAppStore = defineStore('app', {
     setLocale(locale: AppState['locale']) {
       this.locale = locale
       localeStore.value = locale
+    },
+    toggleDarkMode(darkMode?: boolean) {
+      this.darkMode = darkMode || !this.darkMode
+      darkModeStore.value = this.darkMode
+    },
+    toggleCompactMode(compactMode?: boolean) {
+      this.compactMode = compactMode || !this.compactMode
+      compactModeStore.value = this.compactMode
     },
   },
   getters: {

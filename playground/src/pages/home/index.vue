@@ -60,9 +60,7 @@ const { locale } = storeToRefs(appStore)
             </a-button>
           </a-flex>
           <div class="relative w-full mx-auto my-0 z-1 max-w-1200px">
-            <div class="flex w-full max-w-full box-border items-stretch text-align-start min-h-178px mx-auto" style="column-gap: calc(var(--ant-padding-md) * 2);">
-              <!--              -->
-            </div>
+            <div class="flex w-full max-w-full box-border items-stretch text-align-start min-h-178px mx-auto" style="column-gap: calc(var(--ant-padding-md) * 2);" />
           </div>
         </div>
       </div>
