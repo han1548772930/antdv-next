@@ -108,7 +108,6 @@ export interface MenuProps extends Omit<
    *   for removing.
    */
   _internalDisableMenuItemTitleTooltip?: boolean
-
   items?: ItemType[]
   classes?: MenuClassNamesType
   styles?: MenuStylesType
