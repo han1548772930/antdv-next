@@ -169,7 +169,18 @@ const formState = ref<ThemeData>({ ...ThemeDefault })
 
 const isLight = computed(() => themeData.themeType !== 'dark')
 
-const colorPrimaryValue = computed(() => themeData.colorPrimary)
+const colorPrimaryValue = computed(() => {
+  const color = themeData.colorPrimary
+  // 确保始终返回字符串格式的颜色值
+  if (typeof color === 'string') {
+    return color
+  }
+  // 如果是 AggregationColor 对象，转换为 hex 字符串
+  if (color && typeof color === 'object' && 'toHexString' in color) {
+    return (color as any).toHexString()
+  }
+  return '#1677FF'
+})
 
 const closestColor = computed(() => getClosetColor(colorPrimaryValue.value))
 
@@ -262,6 +273,13 @@ function handleFormChange(changedValues: Partial<ThemeData>) {
     onThemeTypeChange(changedValues.themeType)
   }
   else {
+    // 确保 colorPrimary 始终是字符串
+    if ('colorPrimary' in changedValues && changedValues.colorPrimary) {
+      const color = changedValues.colorPrimary
+      if (typeof color === 'object' && 'toHexString' in color) {
+        changedValues.colorPrimary = (color as any).toHexString()
+      }
+    }
     Object.assign(themeData, changedValues)
   }
 }
