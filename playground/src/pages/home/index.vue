@@ -6,6 +6,7 @@ import { useAppStore } from '@/stores/app.ts'
 const ComponentsBlock = defineAsyncComponent(() => import('./components/preview-banner/components-block.vue'))
 const Theme = defineAsyncComponent(() => import('./components/theme/index.vue'))
 const Group = defineAsyncComponent(() => import('./components/group/index.vue'))
+const ComponentsList = defineAsyncComponent(() => import('./components/components-list/index.vue'))
 
 const locales = {
   'zh-CN': {
@@ -105,7 +106,7 @@ const currentLocale = computed(() => locales[locale.value])
         </template>
       </Suspense>
 
-      <!-- 组件列表 - placeholder for future ComponentsList -->
+      <!-- 组件列表 -->
       <Suspense>
         <Group
           id="design"
@@ -113,7 +114,7 @@ const currentLocale = computed(() => locales[locale.value])
           :title="currentLocale.assetsTitle"
           :description="currentLocale.assetsDesc"
         >
-          <!-- ComponentsList will be added here -->
+          <ComponentsList />
         </Group>
         <template #fallback>
           <div />

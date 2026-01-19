@@ -14,6 +14,7 @@ import { ZIndexProvider } from '../_util/zindexContext'
 import { useComponentBaseConfig } from '../config-provider/context'
 import { useToken } from '../theme/internal'
 import TourPanel from './panelRender'
+import PurePanel from './PurePanel.tsx'
 import useStyle from './style'
 
 const Tour = defineComponent<
@@ -203,6 +204,9 @@ export type {
   TourSlots,
   TourStylesType,
 } from './interface'
+
+;(Tour as any)._InternalPanelDoNotUseOrYouWillBeFired = PurePanel
+
 export default Tour
 
 export type TourStepItem = TourStepProps
