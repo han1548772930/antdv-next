@@ -336,7 +336,7 @@ export function parseStyle(
             })
           }
           else {
-            if (!isNonNullable(actualValue)) {
+            if (isNonNullable(actualValue)) {
               appendStyle(key, actualValue)
             }
           }
