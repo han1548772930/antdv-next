@@ -1,12 +1,15 @@
 <docs lang="zh-CN">
-基本的时间轴。
+时间轴点可以在另一侧。
 </docs>
 
 <docs lang="en-US">
-Basic timeline.
+End alternate timeline.
 </docs>
 
 <script setup lang="ts">
+import { ClockCircleOutlined } from '@antdv-next/icons'
+import { h } from 'vue'
+
 const items = [
   {
     children: 'Create a services site 2015-09-01',
@@ -15,6 +18,8 @@ const items = [
     children: 'Solve initial network problems 2015-09-01',
   },
   {
+    dot: () => h(ClockCircleOutlined),
+    color: 'red',
     children: 'Technical testing 2015-09-01',
   },
   {
@@ -24,5 +29,5 @@ const items = [
 </script>
 
 <template>
-  <a-timeline :items="items" />
+  <a-timeline mode="right" :items="items" />
 </template>

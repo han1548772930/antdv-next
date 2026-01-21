@@ -1,7 +1,20 @@
+<docs lang="zh-CN">
+节点支持 `loading` 属性表示加载，`reverse` 属性用于控制节点排序。
+</docs>
+
+<docs lang="en-US">
+Node supports `loading` to indicate loading, and `reverse` property to control the order of nodes.
+</docs>
+
 <script setup lang="ts">
-import { ref } from 'vue'
+import { LoadingOutlined } from '@antdv-next/icons'
+import { ref, h } from 'vue'
 
 const reverse = ref(false)
+
+const handleClick = () => {
+  reverse.value = !reverse.value
+}
 
 const items = [
   {
@@ -13,18 +26,18 @@ const items = [
   {
     children: 'Technical testing 2015-09-01',
   },
+  {
+    children: 'Recording...',
+    dot: () => h(LoadingOutlined)
+  },
 ]
-
-function handleClick() {
-  reverse.value = !reverse.value
-}
 </script>
 
 <template>
-  <div>
-    <a-timeline pending="Recording..." :reverse="reverse" :items="items" />
-    <a-button type="primary" class="mt-4" @click="handleClick">
+  <a-flex vertical gap="middle" align="flex-start">
+    <a-timeline :reverse="reverse" :items="items" />
+    <a-button type="primary" @click="handleClick">
       Toggle Reverse
     </a-button>
-  </div>
+  </a-flex>
 </template>

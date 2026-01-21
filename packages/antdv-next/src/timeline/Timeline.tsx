@@ -19,6 +19,7 @@ export interface TimelineProps extends ComponentBaseProps {
   dotRender?: (params: { item: TimelineItemProps, index: number }) => void
   labelRender?: (params: { item: TimelineItemProps, index: number }) => void
   contentRender?: (params: { item: TimelineItemProps, index: number }) => void
+  orientation?: 'horizontal' | 'vertical'
 }
 
 export interface TimelineSlots {

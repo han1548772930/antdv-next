@@ -14,9 +14,20 @@ demo:
 
 ## 何时使用 {#when-to-use}
 
+- 当有一系列信息需按时间排列时，用户可以非常直观地看到在什么时间发生了什么事情。
+- 你正在阅读这份文档。
+
 ## 示例 {#examples}
 
 <demo-group>
+<demo src="./demo/basic.vue">基本用法</demo>
+<demo src="./demo/variant.vue">变体样式</demo>
+<demo src="./demo/pending.vue">等待及排序</demo>
+<demo src="./demo/alternate.vue">交替展现</demo>
+<demo src="./demo/horizontal.vue">水平布局</demo>
+<demo src="./demo/custom.vue">自定义时间轴点</demo>
+<demo src="./demo/end.vue">另一侧时间轴点</demo>
+<demo src="./demo/title.vue">标题</demo>
 </demo-group>
 
 ## API

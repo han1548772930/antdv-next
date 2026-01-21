@@ -54,6 +54,7 @@ const TimelineItemList = defineComponent<
         rootClass,
         hashId,
       } = props
+
       const dotRender = slots?.dotRender ?? props?.dotRender
       const labelRender = slots?.labelRender ?? props?.labelRender
       const contentRender = slots?.contentRender ?? props?.contentRender

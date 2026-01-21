@@ -1,9 +1,9 @@
 <docs lang="zh-CN">
-基本的时间轴。
+通过 `variant` 设置时间轴的样式。
 </docs>
 
 <docs lang="en-US">
-Basic timeline.
+Use the `variant` to set the style of the timeline.
 </docs>
 
 <script setup lang="ts">
@@ -24,5 +24,5 @@ const items = [
 </script>
 
 <template>
-  <a-timeline :items="items" />
+  <a-timeline variant="filled" :items="items" />
 </template>

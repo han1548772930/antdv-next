@@ -13,9 +13,20 @@ demo:
 
 ## When To Use {#when-to-use}
 
+- When a series of information needs to be ordered by time, users can visually see what happened at what time.
+- You are reading this documentation.
+
 ## Examples {#examples}
 
 <demo-group>
+<demo src="./demo/basic.vue">Basic</demo>
+<demo src="./demo/alternate.vue">Alternate</demo>
+<demo src="./demo/custom.vue">Custom</demo>
+<demo src="./demo/pending.vue">Pending</demo>
+<demo src="./demo/title.vue">Label</demo>
+<demo src="./demo/variant.vue">Variant</demo>
+<demo src="./demo/end.vue">Right Alternate</demo>
+<demo src="./demo/horizontal.vue">Horizontal</demo>
 </demo-group>
 
 ## API

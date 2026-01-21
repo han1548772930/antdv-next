@@ -1,12 +1,18 @@
 <docs lang="zh-CN">
-基本的时间轴。
+可以设置为图标或其他自定义元素。
 </docs>
 
 <docs lang="en-US">
-Basic timeline.
+Set a node as an icon or other custom element.
 </docs>
 
 <script setup lang="ts">
+import { ClockCircleOutlined } from '@antdv-next/icons'
+import { theme } from 'antdv-next'
+import { h } from 'vue'
+
+const { token } = theme.useToken()
+
 const items = [
   {
     children: 'Create a services site 2015-09-01',
@@ -15,6 +21,13 @@ const items = [
     children: 'Solve initial network problems 2015-09-01',
   },
   {
+    dot: () => h(ClockCircleOutlined, {
+      style: {
+        fontSize: '20px',
+        background: token.value.colorBgContainer
+      }
+    }),
+    color: 'red',
     children: 'Technical testing 2015-09-01',
   },
   {
