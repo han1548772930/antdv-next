@@ -11,7 +11,7 @@ group:
   order: 2
 ---
 
-<DocHeading></DocHeading>
+
 
 ## When To Use
 

@@ -10,7 +10,7 @@ demo:
 tag: 6.0.0
 ---
 
-<DocHeading></DocHeading>
+
 
 ## When To Use
 

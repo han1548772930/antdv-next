@@ -6,6 +6,10 @@ export const docsMenuLocales = {
     'zh-CN': 'Ant Design of Vue',
     'en-US': 'Ant Design of Vue',
   },
+  '/blog/antdv-next-release': {
+    'zh-CN': 'Antdv Next Release v1',
+    'en-US': 'Antdv Next v1 发布啦！',
+  },
 }
 
 export const docsMenus: Record<string, AntdvMenuItem[]> = {
@@ -16,4 +20,10 @@ export const docsMenus: Record<string, AntdvMenuItem[]> = {
     },
   ],
   '/components': components,
+  '/blog': [
+    {
+      key: '/blog/antdv-next-release',
+      label: 'Antdv Next Release v1',
+    },
+  ],
 }

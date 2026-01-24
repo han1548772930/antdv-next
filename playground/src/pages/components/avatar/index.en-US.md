@@ -11,7 +11,7 @@ group:
   order: 5
 ---
 
-<DocHeading></DocHeading>
+
 
 ## When To Use {#when-to-use}
 

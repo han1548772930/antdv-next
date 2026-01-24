@@ -11,7 +11,7 @@ demo:
   cols: 2
 ---
 
-<DocHeading></DocHeading>
+
 
 ## When To Use {#when-to-use}
 

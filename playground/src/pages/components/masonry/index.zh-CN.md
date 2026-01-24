@@ -9,7 +9,7 @@ demo:
   cols: 1
 ---
 
-<DocHeading></DocHeading>
+
 
 瀑布流布局组件，用于展示不同高度的内容。
 

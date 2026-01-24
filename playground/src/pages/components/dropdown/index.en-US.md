@@ -9,7 +9,7 @@ demo:
   cols: 2
 ---
 
-<DocHeading></DocHeading>
+
 
 ## When To Use
 

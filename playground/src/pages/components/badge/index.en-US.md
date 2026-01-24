@@ -7,7 +7,7 @@ coverDark: https://mdn.alipayobjects.com/huamei_7uahnr/afts/img/A*v8EQT7KoGbcAAA
 group: Data Display
 ---
 
-<DocHeading></DocHeading>
+
 
 ## When To Use {#when-to-use}
 

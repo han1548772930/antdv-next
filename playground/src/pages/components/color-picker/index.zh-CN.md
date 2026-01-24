@@ -11,7 +11,7 @@ group:
   title: 数据录入
 ---
 
-<DocHeading></DocHeading>
+
 
 ## 何时使用 {#when-to-use}
 

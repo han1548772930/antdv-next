@@ -8,7 +8,7 @@ coverDark: https://mdn.alipayobjects.com/huamei_7uahnr/afts/img/A*v8EQT7KoGbcAAA
 group: 数据展示
 ---
 
-<DocHeading></DocHeading>
+
 
 ## 何时使用 {#when-to-use}
 

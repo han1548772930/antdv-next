@@ -10,7 +10,7 @@ group:
   title: Data Entry
 ---
 
-<DocHeading></DocHeading>
+
 
 ## When To Use {#when-to-use}
 

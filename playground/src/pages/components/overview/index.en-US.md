@@ -4,7 +4,7 @@ title: Components Overview
 showImport: false
 ---
 
-<DocHeading></DocHeading>
+
 
 `antd` provides plenty of UI components to enrich your web applications, and we will improve components experience consistently.
 

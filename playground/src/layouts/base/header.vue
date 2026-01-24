@@ -8,6 +8,7 @@ import { useRoute, useRouter } from 'vue-router'
 import DirectionIcon from '@/components/icons/directionIcon.vue'
 import SearchIcon from '@/components/icons/search.vue'
 import { useMobile } from '@/composables/mobile'
+import { docsMenus } from '@/config/menu/docs'
 import { headerItems, headerLocales } from '@/config/menu/header'
 import SwitchBtn from '@/layouts/base/components/switch-btn.vue'
 import { useAppStore } from '@/stores/app.ts'
@@ -32,10 +33,14 @@ const handleHeaderChange: MenuEmits['click'] = (info) => {
 }
 
 const itemKeys = headerItems.map(item => item?.key).filter(Boolean) as string[]
+const menuPrefixes = Object.keys(docsMenus)
 watch(
   () => route.path,
   () => {
-    const exclude = ['', '/', route.path]
+    const normalizedPath = route.path.endsWith('-cn')
+      ? route.path.slice(0, route.path.length - 3)
+      : route.path
+    const exclude = ['', '/', route.path, normalizedPath]
     const matched = route.matched?.map(v => v.path).filter(path => !exclude.includes(path))
     appStore.setSiderOpenKeys(matched)
     // check path has -cn
@@ -46,13 +51,13 @@ watch(
     else {
       appStore.setSiderKey([route.path])
     }
+    const matchedPrefix = menuPrefixes.find(prefix => normalizedPath.startsWith(prefix))
+    if (matchedPrefix) {
+      appStore.setHeaderKey([matchedPrefix])
+      return
+    }
     const foundKey = itemKeys.find(v => matched?.includes?.(v))
-    if (foundKey) {
-      appStore.setHeaderKey([foundKey])
-    }
-    else {
-      appStore.setHeaderKey([])
-    }
+    appStore.setHeaderKey(foundKey ? [foundKey] : [])
   },
   { immediate: true },
 )

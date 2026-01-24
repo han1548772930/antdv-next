@@ -9,7 +9,7 @@ demo:
     class: grid-demo-box
 ---
 
-<DocHeading></DocHeading>
+
 
 ## Design concept
 

@@ -10,7 +10,7 @@ demo:
   class: grid-demo-box
 ---
 
-<DocHeading></DocHeading>
+
 
 ## 设计理念 {#design-concept}
 

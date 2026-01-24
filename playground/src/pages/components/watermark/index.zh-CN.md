@@ -10,7 +10,7 @@ demo:
   cols: 1
 ---
 
-<DocHeading></DocHeading>
+
 
 ## 何时使用 {#when-to-use}
 

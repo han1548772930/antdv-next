@@ -9,7 +9,7 @@ demo:
   cols: 2
 ---
 
-<DocHeading></DocHeading>
+
 
 ## When To Use
 By clicking the input box, you can select a date from a popup calendar.

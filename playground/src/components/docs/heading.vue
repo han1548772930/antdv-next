@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import type { Frontmatter } from '@/composables/doc-page.ts'
 import { EditOutlined } from '@antdv-next/icons'
 import { computed } from 'vue'
 import { useRoute } from 'vue-router'
@@ -7,7 +8,13 @@ import { usePageInfo } from '@/composables/doc-page.ts'
 defineOptions({
   name: 'DocHeading',
 })
-const { frontmatter } = usePageInfo()
+
+const props = defineProps<{
+  frontmatter?: Frontmatter
+}>()
+
+const pageInfo = usePageInfo()
+const frontmatter = computed(() => props?.frontmatter ?? pageInfo.frontmatter)
 
 const route = useRoute()
 const githubUrl = computed(() => {
@@ -26,7 +33,7 @@ const githubUrl = computed(() => {
 </script>
 
 <template>
-  <a-typography-title style="font-size: 32px;position: relative">
+  <a-typography-title v-if="frontmatter && frontmatter.title" style="font-size: 32px;position: relative">
     <a-space>
       <span>{{ frontmatter?.title }}</span>
       <span>{{ frontmatter?.subtitle }}</span>
