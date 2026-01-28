@@ -147,7 +147,7 @@ catalogs:
     '@v-c/textarea': ^1.0.3
     '@v-c/tooltip': ^1.0.2
     '@v-c/tour': ^1.0.3
-    '@v-c/tree': ^1.0.0
+    '@v-c/tree': ^1.0.1
     '@v-c/tree-select': ^1.0.0
     '@v-c/trigger': ^1.0.6
     '@v-c/upload': ^1.0.0
