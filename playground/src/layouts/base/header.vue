@@ -8,6 +8,7 @@ import { useRoute, useRouter } from 'vue-router'
 import DocSearch from '@/components/doc-search/index.vue'
 import DirectionIcon from '@/components/icons/directionIcon.vue'
 import { useMobile } from '@/composables/mobile'
+import { useLocale } from '@/composables/use-locale'
 import { docsMenus } from '@/config/menu/docs'
 import { headerItems, headerLocales } from '@/config/menu/header'
 import SwitchBtn from '@/layouts/base/components/switch-btn.vue'
@@ -17,6 +18,7 @@ import { useAppStore } from '@/stores/app.ts'
 const route = useRoute()
 const appStore = useAppStore()
 const { headerKey, locale, direction } = storeToRefs(appStore)
+const { t } = useLocale()
 const versions = ref([
   {
     label: version,
@@ -147,8 +149,8 @@ function changeDirection(value: 1 | 2) {
             <SwitchBtn
               key="lang"
               :value="localeValue"
-              tooltip1="中文 / English"
-              tooltip2="English / 中文"
+              :tooltip1="t('layout.header.languageTooltip1')"
+              :tooltip2="t('layout.header.languageTooltip2')"
               @click="changeLocale"
             >
               <template #label1>
@@ -161,8 +163,8 @@ function changeDirection(value: 1 | 2) {
             <SwitchBtn
               key="direction"
               :value="directionValue"
-              tooltip1="LTR"
-              tooltip2="RTL"
+              :tooltip1="t('layout.header.directionTooltip1')"
+              :tooltip2="t('layout.header.directionTooltip2')"
               pure
               aria-label="RTL Switch Button"
               @click="changeDirection"
