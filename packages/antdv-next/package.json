@@ -19,11 +19,6 @@
       "import": "./dist/index.js",
       "default": "./dist/index.js"
     },
-    "./with-locales": {
-      "types": "./dist/index.with.locale.d.ts",
-      "import": "./dist/index.with.locale.js",
-      "default": "./dist/index.with.locale.js"
-    },
     "./dist/*": {
       "types": "./dist/*.d.ts",
       "import": "./dist/*.js",
@@ -73,6 +68,10 @@
     "./global": "./global.d.ts",
     "./dist/reset.css": "./dist/reset.css",
     "./dist/antd.css": "./dist/antd.css",
+    "./dist/antd-with-locales.js": "./dist/antd-with-locales.js",
+    "./dist/antd-with-locales.esm.js": "./dist/antd-with-locales.esm.js",
+    "./dist/antd.esm.js": "./dist/antd.esm.js",
+    "./dist/antd.js": "./dist/antd.js",
     "./web-types.json": "./web-types.json",
     "./web-tags.json": "./web-tags.json",
     "./package.json": "./package.json"
