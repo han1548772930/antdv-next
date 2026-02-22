@@ -11,6 +11,7 @@ Antdv Next is a Vue 3 enterprise component library built on the Ant Design desig
 [![NPM version][npm-image]][npm-url]
 [![NPM downloads][download-image]][download-url]
 [![][jsdelivr-image]][jsdelivr-url]
+[![][nuxt-image]][nuxt-url]
 
 English · [中文](./README.zh-CN.md)
 
@@ -95,3 +96,5 @@ Thank you to all the people who already contributed to Antdv Next!
 [download-url]: https://www.npmjs.com/package/antdv-next
 [jsdelivr-image]: https://data.jsdelivr.com/v1/package/npm/antdv-next/badge
 [jsdelivr-url]: https://www.jsdelivr.com/package/npm/antdv-next
+[nuxt-image]: https://img.shields.io/badge/Nuxt-supported-00DC82?style=flat-square&logo=nuxtdotjs&logoColor=white
+[nuxt-url]: https://nuxt.com/

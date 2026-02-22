@@ -11,6 +11,7 @@
 [![NPM version][npm-image]][npm-url]
 [![NPM downloads][download-image]][download-url]
 [![][jsdelivr-image]][jsdelivr-url]
+[![][nuxt-image]][nuxt-url]
 
 [English](./README.md) · 中文
 
@@ -97,3 +98,5 @@ Antdv Next 在设计与实现过程中参考、借鉴并使用了以下优秀的
 [download-url]: https://www.npmjs.com/package/antdv-next
 [jsdelivr-image]: https://data.jsdelivr.com/v1/package/npm/antdv-next/badge
 [jsdelivr-url]: https://www.jsdelivr.com/package/npm/antdv-next
+[nuxt-image]: https://img.shields.io/badge/Nuxt-supported-00DC82?style=flat-square&logo=nuxtdotjs&logoColor=white
+[nuxt-url]: https://nuxt.com/
