@@ -1,6 +1,6 @@
 <div align="center"><a name="readme-top"></a>
 
-<img height="180" src="./playground/public/antdv-next.svg">
+<img height="180" src="./docs/public/antdv-next.svg">
 
 <h1>Antdv Next</h1>
 
