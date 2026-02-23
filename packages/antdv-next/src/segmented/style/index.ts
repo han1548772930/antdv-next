@@ -263,7 +263,7 @@ const genSegmentedStyle: GenerateStyle<SegmentedToken, CSSObject> = (token) => {
       ...getItemDisabledStyle(`${componentCls}-item-disabled`, token),
 
       // transition effect when `appear-active`
-      [`${componentCls}-thumb-motion-appear-active`]: {
+      [`${componentCls}-thumb-motion-appear`]: {
         willChange: 'transform, width',
         transition: [`transform`, `width`]
           .map(prop => `${prop} ${motionDurationSlow} ${motionEaseInOut}`)
