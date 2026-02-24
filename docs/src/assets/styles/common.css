@@ -12,11 +12,6 @@ body {
   scrollbar-color: #eaeaea transparent;
 }
 
-html::-webkit-scrollbar,
-body::-webkit-scrollbar {
-  width: 10px;
-  height: 10px;
-}
 
 .custom-carousel-item {
   margin: 0;
