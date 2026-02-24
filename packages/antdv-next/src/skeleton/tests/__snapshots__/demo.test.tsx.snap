@@ -1644,48 +1644,6 @@ exports[`skeleton demo > renders element correctly 1`] = `
 </div>
 `;
 
-exports[`skeleton demo > renders list correctly 1`] = `
-<div
-  data-v-a84cf8c1=""
->
-  <button
-    aria-checked="false"
-    checked="false"
-    class="ant-switch css-var-root"
-    data-v-a84cf8c1=""
-    role="switch"
-    style="margin-bottom: 16px;"
-    type="button"
-  >
-    <div
-      class="ant-switch-handle"
-    >
-      <!---->
-    </div>
-    <span
-      class="ant-switch-inner"
-    >
-      <span
-        class="ant-switch-inner-checked"
-      >
-        <!---->
-      </span>
-      <span
-        class="ant-switch-inner-unchecked"
-      >
-        <!---->
-      </span>
-    </span>
-  </button>
-  <a-list
-    data-source="[object Object],[object Object],[object Object]"
-    data-v-a84cf8c1=""
-    item-layout="vertical"
-    size="large"
-  />
-</div>
-`;
-
 exports[`skeleton demo > renders style-class correctly 1`] = `
 <div
   class="ant-flex css-var-root ant-flex-gap-middle"
