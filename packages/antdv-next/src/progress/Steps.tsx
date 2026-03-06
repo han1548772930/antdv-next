@@ -33,7 +33,6 @@ const Steps = defineComponent<
         styles,
         size,
         steps,
-        stepGap,
         rounding = Math.round,
         percent = 0,
         strokeWidth = 8,
@@ -47,8 +46,7 @@ const Steps = defineComponent<
       const stepWidth = size === 'small' ? 2 : 14
       const mergedSize = size ?? [stepWidth, strokeWidth]
       const [width, height] = getSize(mergedSize, 'step', { steps, strokeWidth })
-      const mergedGap = stepGap ?? 2
-      const unitWidth = (width - mergedGap * (steps - 1)) / steps
+      const unitWidth = width / steps
 
       const mergedRailColor = railColor ?? trailColor
 
@@ -68,7 +66,6 @@ const Steps = defineComponent<
               backgroundColor: index <= current - 1 ? color : mergedRailColor,
               width: `${unitWidth}px`,
               height: `${height}px`,
-              marginInlineEnd: index === steps - 1 ? undefined : `${mergedGap}px`,
               ...styles.track,
             }}
           />
