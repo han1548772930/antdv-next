@@ -7,6 +7,7 @@ import { getSize } from './utils.ts'
 
 export interface ProgressStepsProps extends Omit<ProgressProps, 'classes' | 'styles'> {
   steps: number
+  stepGap?: number
   strokeColor?: string | string[]
   railColor?: string
   /** @deprecated Please use `railColor` instead */
@@ -32,6 +33,7 @@ const Steps = defineComponent<
         styles,
         size,
         steps,
+        stepGap,
         rounding = Math.round,
         percent = 0,
         strokeWidth = 8,
@@ -45,7 +47,8 @@ const Steps = defineComponent<
       const stepWidth = size === 'small' ? 2 : 14
       const mergedSize = size ?? [stepWidth, strokeWidth]
       const [width, height] = getSize(mergedSize, 'step', { steps, strokeWidth })
-      const unitWidth = width / steps
+      const mergedGap = stepGap ?? 2
+      const unitWidth = (width - mergedGap * (steps - 1)) / steps
 
       const mergedRailColor = railColor ?? trailColor
 
@@ -65,6 +68,7 @@ const Steps = defineComponent<
               backgroundColor: index <= current - 1 ? color : mergedRailColor,
               width: `${unitWidth}px`,
               height: `${height}px`,
+              marginInlineEnd: index === steps - 1 ? undefined : `${mergedGap}px`,
               ...styles.track,
             }}
           />

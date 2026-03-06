@@ -48,8 +48,7 @@ export type ProgressStylesType = SemanticStylesType<ProgressProps, ProgressSeman
 export const ProgressTypes = ['line', 'circle', 'dashboard'] as const
 export type ProgressType = (typeof ProgressTypes)[number]
 const ProgressStatuses = ['normal', 'exception', 'active', 'success'] as const
-export type ProgressSize = 'default' | 'small'
-export type StringGradients = Record<string, string>
+export type ProgressSize = 'small' | 'medium' | 'default'
 interface FromToGradients { from: string, to: string }
 export type ProgressGradient = { direction?: string } & (StringGradients | FromToGradients)
 export interface PercentPositionType {
@@ -101,7 +100,7 @@ export interface ProgressSlots {
 const defaultProps = {
   percent: 0,
   showInfo: true,
-  size: 'default',
+  size: 'medium',
   type: 'line',
   percentPosition: {},
 } as ProgressProps
@@ -212,6 +211,8 @@ const Progress = defineComponent<
           )
         }
       }
+
+      warning.deprecated(props.size !== 'default', 'size="default"', 'size="medium"')
     }
 
     const progressInfo = computed(() => {
@@ -268,6 +269,7 @@ const Progress = defineComponent<
 
       if (mergedType.value === 'line') {
         const steps = typeof props.steps === 'object' ? props.steps.count : props.steps
+        const stepsGap = typeof props.steps === 'object' ? props.steps.gap : undefined
         progress = props.steps
           ? (
               <Steps
@@ -275,6 +277,7 @@ const Progress = defineComponent<
                 strokeColor={strokeColorNotGradient.value}
                 prefixCls={prefixCls.value}
                 steps={steps!}
+                stepGap={stepsGap}
               >
                 {progressInfo.value}
               </Steps>
@@ -318,7 +321,7 @@ const Progress = defineComponent<
           [`${prefixCls.value}-line-position-${infoPosition.value}`]: isPureLineType.value,
           [`${prefixCls.value}-steps`]: props.steps,
           [`${prefixCls.value}-show-info`]: mergedShowInfo.value,
-          [`${prefixCls.value}-${mergedSize.value}`]: typeof mergedSize.value === 'string',
+          [`${prefixCls.value}-small`]: mergedSize.value === 'small',
           [`${prefixCls.value}-rtl`]: direction.value === 'rtl',
         },
         contextClassName.value,
@@ -330,8 +333,8 @@ const Progress = defineComponent<
       )
 
       const rootStyle = [
-        mergedStyles.value.root,
         contextStyle.value,
+        mergedStyles.value.root,
         attrStyle,
       ]
 
