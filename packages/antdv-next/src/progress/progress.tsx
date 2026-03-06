@@ -49,6 +49,7 @@ export const ProgressTypes = ['line', 'circle', 'dashboard'] as const
 export type ProgressType = (typeof ProgressTypes)[number]
 const ProgressStatuses = ['normal', 'exception', 'active', 'success'] as const
 export type ProgressSize = 'small' | 'medium' | 'default'
+export type StringGradients = Record<string, string>
 interface FromToGradients { from: string, to: string }
 export type ProgressGradient = { direction?: string } & (StringGradients | FromToGradients)
 export interface PercentPositionType {
@@ -269,7 +270,6 @@ const Progress = defineComponent<
 
       if (mergedType.value === 'line') {
         const steps = typeof props.steps === 'object' ? props.steps.count : props.steps
-        const stepsGap = typeof props.steps === 'object' ? props.steps.gap : undefined
         progress = props.steps
           ? (
               <Steps
@@ -277,7 +277,6 @@ const Progress = defineComponent<
                 strokeColor={strokeColorNotGradient.value}
                 prefixCls={prefixCls.value}
                 steps={steps!}
-                stepGap={stepsGap}
               >
                 {progressInfo.value}
               </Steps>

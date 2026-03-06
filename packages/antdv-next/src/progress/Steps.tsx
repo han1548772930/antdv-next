@@ -7,7 +7,6 @@ import { getSize } from './utils.ts'
 
 export interface ProgressStepsProps extends Omit<ProgressProps, 'classes' | 'styles'> {
   steps: number
-  stepGap?: number
   strokeColor?: string | string[]
   railColor?: string
   /** @deprecated Please use `railColor` instead */
