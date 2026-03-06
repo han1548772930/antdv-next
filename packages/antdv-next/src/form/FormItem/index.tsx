@@ -8,6 +8,7 @@ import type { ItemHolderProps } from './ItemHolder.tsx'
 import { clsx } from '@v-c/util'
 import { filterEmpty } from '@v-c/util/dist/props-util'
 import { computed, createVNode, defineComponent, isVNode, onBeforeUnmount, shallowRef, watch } from 'vue'
+import { getSlotPropsFnRun } from '../../_util/tools.ts'
 import { checkRenderNode } from '../../_util/vueNode.ts'
 import { useComponentBaseConfig } from '../../config-provider/context'
 import useCSSVarCls from '../../config-provider/hooks/useCSSVarCls'
@@ -17,6 +18,7 @@ import { getFieldId, initialValueFormat, toArray } from '../util.ts'
 import { validateRules } from '../utils/validateUtil.ts'
 import { getNamePath, getValue, setValue } from '../utils/valueUtil.ts'
 import ItemHolder from './ItemHolder.tsx'
+
 import StatusProvider from './StatusProvider.tsx'
 
 const NAME_SPLIT = '__SPLIT__'
@@ -61,8 +63,15 @@ export type FormItemProps = BaseFormItemProps
 
 export interface FormItemEmits {
 }
+export interface FormItemEmitsProps {
+}
+
 export interface FormItemSlots {
   default: () => any
+  tooltip?: (tooltip?: FormItemLabelProps['tooltip']) => any
+  label?: () => any
+  extra?: () => any
+  help?: () => any
 }
 
 function genEmptyMeta(): Meta {
@@ -76,8 +85,12 @@ function genEmptyMeta(): Meta {
   }
 }
 
+interface InternalFormItemProps extends FormItemProps,
+  /* @vue-ignore */
+  FormItemEmitsProps {}
+
 const InternalFormItem = defineComponent<
-  FormItemProps,
+  InternalFormItemProps,
   FormItemEmits,
   string,
   SlotsType<FormItemSlots>
@@ -100,8 +113,28 @@ const InternalFormItem = defineComponent<
     const [hashId, cssVarCls] = useStyle(prefixCls, rootCls)
 
     const meta = shallowRef<Meta>({ ...genEmptyMeta(), name: namePath.value })
-    watch(namePath, (val) => {
-      meta.value = { ...meta.value, name: val }
+    watch(namePath, (val, prev) => {
+      // In array/list-style fields, index shifts can change the path without unmounting.
+      // Notify parent noStyle aggregator to remove stale error buckets keyed by the old path.
+      const pathChanged = !!(
+        props.noStyle
+        && notifyParentMetaChange
+        && prev?.length
+        && (prev.length !== val.length || prev.some((seg, index) => seg !== val[index]))
+      )
+      if (pathChanged) {
+        notifyParentMetaChange(
+          { ...meta.value, name: prev, destroy: true } as Meta & { destroy: boolean },
+          prev,
+        )
+      }
+      const nextMeta = { ...meta.value, name: val }
+      meta.value = nextMeta
+      if (pathChanged) {
+        // Re-register current validation state under the new path immediately,
+        // otherwise existing errors/warnings can disappear until the next meta update.
+        notifyParentMetaChange!(nextMeta, val)
+      }
     })
 
     const errors = shallowRef<any[]>([])
@@ -405,6 +438,12 @@ const InternalFormItem = defineComponent<
     )
 
     onBeforeUnmount(() => {
+      if (props.noStyle && notifyParentMetaChange) {
+        notifyParentMetaChange(
+          { ...meta.value, destroy: true } as Meta & { destroy: boolean },
+          meta.value.name,
+        )
+      }
       formContext.value?.removeField?.(eventKey.value)
     })
 
@@ -433,24 +472,50 @@ const InternalFormItem = defineComponent<
       if ((Array.isArray(baseChildren) && baseChildren.length === 1 && isVNode(baseChildren[0])) || isVNode(baseChildren)) {
         const child = isVNode(baseChildren) ? baseChildren : baseChildren[0]
         const childProps = child.props || {}
+        const _onBlur = childProps.onBlur
+        const _onFocus = childProps.onFocus
+        if (_onBlur) {
+          delete child.props.onBlur
+        }
+        if (_onFocus) {
+          delete child.props.onFocus
+        }
         const newChildProps = {
-          id: currentFieldId,
-          ...childProps,
+          id: childProps.id || currentFieldId,
           onBlur: (...args: any[]) => {
             onFieldBlur()
-            if (childProps.onBlur) {
-              childProps.onBlur(...args)
+            if (_onBlur) {
+              // 判断可能是不是数组的情况
+              if (Array.isArray(_onBlur)) {
+                _onBlur.forEach((fn) => {
+                  if (typeof fn === 'function') {
+                    fn(...args)
+                  }
+                })
+              }
+              else {
+                _onBlur?.(...args)
+              }
             }
           },
           onFocus: (...args: any[]) => {
             onFieldFocus()
-            if (childProps.onFocus) {
-              childProps.onFocus(...args)
+            // 判断可能是不是数组的情况
+            if (_onFocus) {
+              if (Array.isArray(_onFocus)) {
+                _onFocus.forEach((fn) => {
+                  if (typeof fn === 'function') {
+                    fn(...args)
+                  }
+                })
+              }
+              else {
+                _onFocus?.(...args)
+              }
             }
           },
-
         }
-        baseChildren = createVNode(child.type, newChildProps, child.children)
+        baseChildren = createVNode(child, newChildProps)
       }
       if (props.noStyle && !props.hidden) {
         return (
@@ -469,9 +534,38 @@ const InternalFormItem = defineComponent<
         )
       }
 
+      const tooltipSlotValue = getSlotPropsFnRun(slots, props, 'tooltip', false, props.tooltip)
+      let mergedTooltip = props.tooltip
+      if (tooltipSlotValue !== undefined) {
+        const isTooltipOptions = !!(
+          props.tooltip
+          && typeof props.tooltip === 'object'
+          && !Array.isArray(props.tooltip)
+          && !isVNode(props.tooltip)
+        )
+        if (isTooltipOptions) {
+          const isSlotOptions = !!(
+            tooltipSlotValue
+            && typeof tooltipSlotValue === 'object'
+            && !Array.isArray(tooltipSlotValue)
+            && !isVNode(tooltipSlotValue)
+          )
+          mergedTooltip = isSlotOptions
+            ? { ...(props.tooltip as any), ...(tooltipSlotValue as any) }
+            : { ...(props.tooltip as any), title: tooltipSlotValue as any }
+        }
+        else {
+          mergedTooltip = tooltipSlotValue as any
+        }
+      }
+
       return (
         <ItemHolder
           {...props}
+          tooltip={mergedTooltip}
+          label={getSlotPropsFnRun(slots, props, 'label')}
+          extra={getSlotPropsFnRun(slots, props, 'extra')}
+          help={getSlotPropsFnRun(slots, props, 'help')}
           {...attrs}
           rootClass={rootClassName.value}
           prefixCls={prefixCls.value}

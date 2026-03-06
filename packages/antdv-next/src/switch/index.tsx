@@ -39,7 +39,9 @@ export type SwitchStylesType = SemanticStylesType<SwitchProps, SwitchSemanticSty
 
 export type CheckedValueType = string | number | boolean | object
 
-export interface SwitchProps extends ComponentBaseProps {
+export interface SwitchProps extends ComponentBaseProps,
+  /* @vue-ignore */
+  SwitchEmitsProps {
   size?: SwitchSize
   checked?: CheckedValueType
   defaultChecked?: CheckedValueType
@@ -79,6 +81,12 @@ export interface SwitchEmits {
   'click': SwitchClickEventHandler
   'update:checked': (checked: CheckedValueType) => void
   'update:value': (checked: CheckedValueType) => void
+}
+export interface SwitchEmitsProps {
+  onChange?: SwitchEmits['change']
+  onClick?: SwitchEmits['click']
+  'onUpdate:checked'?: SwitchEmits['update:checked']
+  'onUpdate:value'?: SwitchEmits['update:value']
 }
 
 export interface SwitchSlots {
@@ -177,7 +185,9 @@ const Switch = defineComponent<
     const handleVMHandler = (checked: boolean) => {
       // 根据 checked 状态返回对应的自定义值
       const newValue = checked ? mergedCheckedValue.value : mergedUnCheckedValue.value
-      currentValue.value = newValue
+      if (props.checked === undefined && props.value === undefined) {
+        currentValue.value = newValue
+      }
       emit('update:checked', newValue)
       emit('update:value', newValue)
     }

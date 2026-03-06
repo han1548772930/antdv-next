@@ -1,3 +1,4 @@
+import type { DialogProps } from '@v-c/dialog'
 import type { SlotsType } from 'vue'
 import type { Breakpoint } from '../_util/responsiveObserver'
 import type { ModalClassNamesType, ModalEmits, ModalProps, ModalSlots, ModalStylesType, MousePosition } from './interface'
@@ -20,6 +21,7 @@ import useFocusable from '../drawer/useFocusable.ts'
 import Skeleton from '../skeleton'
 import { usePanelRef } from '../watermark/context.ts'
 import { Footer, renderCloseIcon } from './shared.tsx'
+
 import useStyle from './style'
 
 let mousePosition: MousePosition
@@ -48,8 +50,18 @@ const defaults = {
   width: 520,
 } as any
 
+export interface InternalModalProps extends ModalProps,
+  /* @vue-ignore */
+  ModalEmitsProps {}
+
+export interface ModalEmitsProps {
+  onOk?: ModalEmits['ok']
+  onCancel?: ModalEmits['cancel']
+  'onUpdate:open'?: ModalEmits['update:open']
+}
+
 const Modal = defineComponent<
-  ModalProps,
+  InternalModalProps,
   ModalEmits,
   string,
   SlotsType<ModalSlots>
@@ -121,7 +133,7 @@ const Modal = defineComponent<
       closableContext.value?.[1]?.()
     }
 
-    const handleCancel = (e: MouseEvent) => {
+    const handleCancel = (e: MouseEvent | KeyboardEvent) => {
       if (props.confirmLoading) {
         return
       }
@@ -349,7 +361,7 @@ const Modal = defineComponent<
               title={titleNode}
               visible={props.open}
               mousePosition={props.mousePosition ?? mousePosition}
-              onClose={handleCancel as any}
+              onClose={handleCancel as DialogProps['onClose']}
               closable={mergedClosable as any}
               closeIcon={mergedCloseIcon}
               focusTriggerAfterClose={mergedFocusable.value?.focusTriggerAfterClose}

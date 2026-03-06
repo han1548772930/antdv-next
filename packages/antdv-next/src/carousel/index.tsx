@@ -16,7 +16,9 @@ import useStyle, { DotDuration } from './style'
 export type CarouselEffect = 'scrollx' | 'fade'
 export type DotPlacement = 'top' | 'bottom' | 'start' | 'end'
 export interface CarouselProps extends
-  Omit<Settings, 'prevArrow' | 'nextArrow' | 'dots' | 'className' | 'style' | 'dotsClass' | 'autoplay' | 'onInit' | 'onReInit' | 'onEdge' | 'onSwipe' | 'onLazyLoad' | 'onLazyLoadError'>, ComponentBaseProps {
+  Omit<Settings, 'prevArrow' | 'nextArrow' | 'dots' | 'className' | 'style' | 'dotsClass' | 'autoplay' | 'onInit' | 'onReInit' | 'onEdge' | 'onSwipe' | 'onLazyLoad' | 'onLazyLoadError'>, ComponentBaseProps,
+  /* @vue-ignore */
+  CarouselEmitsProps {
   effect?: CarouselEffect
   id?: string
   slickGoTo?: number
@@ -43,6 +45,14 @@ export interface CarouselEmits {
   swipe: NonNullable<Settings['onSwipe']>
   lazyLoad: NonNullable<Settings['onLazyLoad']>
   lazyLoadError: NonNullable<Settings['onLazyLoadError']>
+}
+export interface CarouselEmitsProps {
+  onInit?: CarouselEmits['init']
+  onReInit?: CarouselEmits['reInit']
+  onEdge?: CarouselEmits['edge']
+  onSwipe?: CarouselEmits['swipe']
+  onLazyLoad?: CarouselEmits['lazyLoad']
+  onLazyLoadError?: CarouselEmits['lazyLoadError']
 }
 
 export interface CarouselRef {
@@ -143,11 +153,7 @@ const Carousel = defineComponent<
       innerSlider: computed(() => slickRef.value?.innerSlider),
     } as CarouselRef)
 
-    const children = computed(() => slots?.default?.())
-    const childNodes = computed(() => {
-      return filterEmpty(children.value || []).filter(Boolean)
-    })
-    const count = computed(() => childNodes.value.length)
+    const count = shallowRef(0)
     const isRTL = computed(() => (props?.rtl ?? direction.value === 'rtl') && !props.vertical)
 
     watch([count, () => props?.initialSlide, isRTL], () => {
@@ -235,6 +241,11 @@ const Carousel = defineComponent<
       const dotDurationStyle: CSSProperties = mergedShowDuration
         ? { [DotDuration]: `${autoplaySpeed}ms` }
         : {}
+      const children = slots?.default?.()
+      const childNodes = filterEmpty(children || []).filter(Boolean)
+      if (count.value !== childNodes.length) {
+        count.value = childNodes.length
+      }
 
       const prevArrow = getSlotPropsFnRun(slots, props, 'prevArrow')
       const nextArrow = getSlotPropsFnRun(slots, props, 'nextArrow')
@@ -255,7 +266,7 @@ const Carousel = defineComponent<
             waitForAnimate={waitForAnimate}
             rtl={isRTL.value}
           >
-            {slots?.default?.()}
+            {children}
           </SlickCarousel>
         </div>
       )

@@ -39,8 +39,19 @@ const omitKeys = [
   'selectComponentClass',
 ] as const
 
+export interface InternalPaginationProps extends PaginationProps,
+  /* @vue-ignore */
+  PaginationEmitsProps {}
+
+export interface PaginationEmitsProps {
+  onChange?: PaginationEmits['change']
+  onShowSizeChange?: PaginationEmits['showSizeChange']
+  'onUpdate:current'?: PaginationEmits['update:current']
+  'onUpdate:pageSize'?: PaginationEmits['update:pageSize']
+}
+
 const Pagination = defineComponent<
-  PaginationProps,
+  InternalPaginationProps,
   PaginationEmits,
   string,
   SlotsType<PaginationSlots>
@@ -217,13 +228,13 @@ const Pagination = defineComponent<
     })
 
     const handleChange: NonNullable<VcPaginationProps['onChange']> = (page, pageSize) => {
-      emit('change', page, pageSize)
       if (props.current !== page) {
         emit('update:current', page)
       }
       else if (props.pageSize !== pageSize) {
         emit('update:pageSize', pageSize)
       }
+      emit('change', page, pageSize)
     }
 
     const handleShowSizeChange: NonNullable<VcPaginationProps['onShowSizeChange']> = (current, size) => {

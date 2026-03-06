@@ -21,6 +21,7 @@ import useCSSVarCls from '../config-provider/hooks/useCSSVarCls'
 import { useFormItemContext, useFormItemInputContext } from '../form/context'
 import { useGroupContext } from './GroupContext'
 import useStyle from './style'
+
 import useBubbleLock from './useBubbleLock.ts'
 
 export type CheckedValueType = string | number | boolean | object
@@ -60,6 +61,19 @@ export interface CheckboxEmits {
   'blur': (event: FocusEvent) => void
   'click': (event: MouseEvent) => void
 }
+export interface CheckboxEmitsProps {
+  onChange?: CheckboxEmits['change']
+  'onUpdate:checked'?: CheckboxEmits['update:checked']
+  'onUpdate:value'?: CheckboxEmits['update:value']
+  onMouseenter?: CheckboxEmits['mouseenter']
+  onMouseleave?: CheckboxEmits['mouseleave']
+  onKeypress?: CheckboxEmits['keypress']
+  onKeydown?: CheckboxEmits['keydown']
+  onFocus?: CheckboxEmits['focus']
+  onBlur?: CheckboxEmits['blur']
+  onClick?: CheckboxEmits['click']
+}
+
 export interface CheckboxSlots {
   default?: () => any
 }
@@ -85,7 +99,9 @@ export type CheckboxClassNamesType = SemanticClassNamesType<
 
 export type CheckboxStylesType = SemanticStylesType<CheckboxProps, CheckboxSemanticStyles>
 
-export interface CheckboxProps extends AbstractCheckboxProps {
+export interface CheckboxProps extends AbstractCheckboxProps,
+  /* @vue-ignore */
+  CheckboxEmitsProps {
   indeterminate?: boolean
   classes?: CheckboxClassNamesType
   styles?: CheckboxStylesType
@@ -202,6 +218,10 @@ const InternalCheckbox = defineComponent<
     )
 
     const rootCls = useCSSVarCls(prefixCls)
+
+    // checkbox is controlled when checked prop is defined
+    const isControlled = computed(() => props.checked !== undefined)
+
     const [hashId, cssVarCls] = useStyle(prefixCls, rootCls)
     // ============================ Event Lock ============================
     const [onLabelClick, onInputClick] = useBubbleLock((e) => {
@@ -300,7 +320,9 @@ const InternalCheckbox = defineComponent<
                     else {
                       // 单独使用时，返回自定义值
                       const newValue = checked ? mergedCheckedValue.value : mergedUnCheckedValue.value
-                      currentValue.value = newValue
+                      if (!isControlled.value) {
+                        currentValue.value = newValue
+                      }
                       emit('update:checked', newValue)
                     }
                   },

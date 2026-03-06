@@ -1,14 +1,14 @@
-const typeTemplate = '\'${name}\' is not a valid ${type}'
+const typeTemplate = '\${label}\ is not a valid ${type}'
 
 export const defaultValidateMessages = {
-  default: 'Validation error on field \'${name}\'',
-  required: '\'${name}\' is required',
-  enum: '\'${name}\' must be one of [${enum}]',
-  whitespace: '\'${name}\' cannot be empty',
+  default: 'Validation error on field \${label}\'',
+  required: '\${label}\ is required',
+  enum: '\${label}\ must be one of [${enum}]',
+  whitespace: '\${label}\ cannot be empty',
   date: {
-    format: '\'${name}\' is invalid for format date',
-    parse: '\'${name}\' could not be parsed as date',
-    invalid: '\'${name}\' is invalid date',
+    format: '\${label}\ is invalid for format date',
+    parse: '\${label}\ could not be parsed as date',
+    invalid: '\${label}\ is invalid date',
   },
   types: {
     string: typeTemplate,
@@ -26,24 +26,24 @@ export const defaultValidateMessages = {
     hex: typeTemplate,
   },
   string: {
-    len: '\'${name}\' must be exactly ${len} characters',
-    min: '\'${name}\' must be at least ${min} characters',
-    max: '\'${name}\' cannot be longer than ${max} characters',
-    range: '\'${name}\' must be between ${min} and ${max} characters',
+    len: '\${label}\ must be exactly ${len} characters',
+    min: '\${label}\ must be at least ${min} characters',
+    max: '\${label}\ cannot be longer than ${max} characters',
+    range: '\${label}\ must be between ${min} and ${max} characters',
   },
   number: {
-    len: '\'${name}\' must equal ${len}',
-    min: '\'${name}\' cannot be less than ${min}',
-    max: '\'${name}\' cannot be greater than ${max}',
-    range: '\'${name}\' must be between ${min} and ${max}',
+    len: '\${label}\ must equal ${len}',
+    min: '\${label}\ cannot be less than ${min}',
+    max: '\${label}\ cannot be greater than ${max}',
+    range: '\${label}\ must be between ${min} and ${max}',
   },
   array: {
-    len: '\'${name}\' must be exactly ${len} in length',
-    min: '\'${name}\' cannot be less than ${min} in length',
-    max: '\'${name}\' cannot be greater than ${max} in length',
-    range: '\'${name}\' must be between ${min} and ${max} in length',
+    len: '\${label}\ must be exactly ${len} in length',
+    min: '\${label}\ cannot be less than ${min} in length',
+    max: '\${label}\ cannot be greater than ${max} in length',
+    range: '\${label}\ must be between ${min} and ${max} in length',
   },
   pattern: {
-    mismatch: '\'${name}\' does not match pattern ${pattern}',
+    mismatch: '\${label}\ does not match pattern ${pattern}',
   },
 }

@@ -106,6 +106,7 @@ async function validateRule(
   const kv = {
     ...(rule as Record<string, string | number>),
     name,
+    label: (messageVariables && messageVariables.label) ? messageVariables.label : name,
     enum: (rule.enum || []).join(', '),
     ...messageVariables,
   }

@@ -92,7 +92,9 @@ export interface AutoCompleteProps extends
     | 'getInputElement'
     | 'getRawInputElement'
     | RcEventKeys
-  > {
+  >,
+  /* @vue-ignore */
+  AutoCompleteEmitsProps {
   /** @deprecated Please use `options` instead */
   dataSource?: DataSourceItemType[]
   status?: InputStatus
@@ -132,6 +134,27 @@ export interface AutoCompleteEmits {
   'popupScroll': NonNullable<VcSelectProps['onPopupScroll']>
   'select': NonNullable<VcSelectProps['onSelect']>
   'search': NonNullable<VcSelectProps['onSearch']>
+}
+export interface AutoCompleteEmitsProps {
+  onOpenChange?: AutoCompleteEmits['openChange']
+  onDropdownVisibleChange?: AutoCompleteEmits['dropdownVisibleChange']
+  onClear?: AutoCompleteEmits['clear']
+  onKeydown?: AutoCompleteEmits['keydown']
+  onKeyup?: AutoCompleteEmits['keyup']
+  onBlur?: AutoCompleteEmits['blur']
+  'onUpdate:value'?: AutoCompleteEmits['update:value']
+  onClick?: AutoCompleteEmits['click']
+  onActive?: AutoCompleteEmits['active']
+  onChange?: AutoCompleteEmits['change']
+  onDeselect?: AutoCompleteEmits['deselect']
+  onInputKeydown?: AutoCompleteEmits['inputKeydown']
+  onMousedown?: AutoCompleteEmits['mousedown']
+  onMouseleave?: AutoCompleteEmits['mouseleave']
+  onMouseenter?: AutoCompleteEmits['mouseenter']
+  onFocus?: AutoCompleteEmits['focus']
+  onPopupScroll?: AutoCompleteEmits['popupScroll']
+  onSelect?: AutoCompleteEmits['select']
+  onSearch?: AutoCompleteEmits['search']
 }
 
 export interface AutoCompleteSlots {
@@ -203,6 +226,7 @@ const InternalAutoComplete = defineComponent<
       }
 
       const getInputElement = customizeInput ? () => customizeInput : undefined
+      const customizeInputPlaceholder = customizeInput?.props?.placeholder
 
       let optionChildren: any = []
       if (hasSelectOptions) {
@@ -303,6 +327,9 @@ const InternalAutoComplete = defineComponent<
       }
 
       const selectProps: Record<string, any> = omit(props, omitKeys)
+      if (selectProps.placeholder === undefined && customizeInputPlaceholder !== undefined) {
+        selectProps.placeholder = customizeInputPlaceholder
+      }
       const onAttrs = {
         onSelect: (value: any, option: any) => {
           emit('select', value, option)

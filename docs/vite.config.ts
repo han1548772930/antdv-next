@@ -11,7 +11,6 @@ import { tsxResolveTypes } from 'vite-plugin-tsx-resolve-types'
 import virtualAntdCss from './plugins/css-plugin'
 import { mdPlugin } from './plugins/markdown'
 import { postcssIsolateStyles } from './plugins/markdown/isolateStyles.ts'
-import prefetch from './plugins/prefetch'
 
 const baseUrl = fileURLToPath(new URL('.', import.meta.url))
 // https://vite.dev/config/
@@ -23,7 +22,7 @@ export default defineConfig({
     dayjsPlugin(),
     mdPlugin(),
     tsxResolveTypes({
-      defaultPropsToUndefined: true,
+      defaultPropsToUndefined: ['Boolean'],
     }),
     vueJsx(),
     vue({
@@ -31,7 +30,7 @@ export default defineConfig({
     }),
     inspect(),
     Unocss(),
-    prefetch(),
+    // prefetch(),
   ],
   server: {
     port: 3322,

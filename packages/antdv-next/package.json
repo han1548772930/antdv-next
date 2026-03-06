@@ -1,7 +1,7 @@
 {
   "name": "antdv-next",
   "type": "module",
-  "version": "1.0.5",
+  "version": "1.1.1-beta.1",
   "description": "Ant Design Vue3 Component Library",
   "author": {
     "email": "aibayanyu@gamil.com",
@@ -13,6 +13,14 @@
     "url": "git+https://github.com/antdv-next/antdv-next.git",
     "directory": "packages/antdv-next"
   },
+  "sideEffects": [
+    "./dist/reset.css",
+    "./dist/antd.css",
+    "./dist/antd-with-locales.js",
+    "./dist/antd-with-locales.esm.js",
+    "./dist/antd.esm.js",
+    "./dist/antd.js"
+  ],
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
@@ -108,7 +116,8 @@
     "build:full-esm": "vite build --config ./vite.esm.config.ts",
     "build:umd": "vite build",
     "build:web-types": "tsx ./scripts/web-types/index.ts",
-    "build:llm": "tsx ./scripts/llm/generate-llms.ts",
+    "build:llm": "run-p build:llm-text build:llm-semantic",
+    "build:llm-text": "tsx ./scripts/llm/generate-llms.ts",
     "build:llm-semantic": "tsx ./scripts/llm/generate-llms-semantic.ts",
     "build:token-meta": "tsx ./scripts/token/generate-token-meta.ts",
     "build:token-statistic": "cross-env NODE_ENV=production CSSINJS_STATISTIC=1 tsx ./scripts/token/collect-token-statistic.ts",

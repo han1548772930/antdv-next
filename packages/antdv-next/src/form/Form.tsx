@@ -27,12 +27,14 @@ import { useDisabledContext, useDisabledContextProvider } from '../config-provid
 import useCSSVarCls from '../config-provider/hooks/useCSSVarCls.ts'
 import { useSize } from '../config-provider/hooks/useSize.ts'
 import { useSizeProvider } from '../config-provider/SizeContext.tsx'
+import useLocale from '../locale/useLocale.ts'
 import { NoFormStyle, useFormContextProvider, useVariantContextProvider } from './context.tsx'
 import useStyle from './style'
 import { getFieldId, toArray } from './util.ts'
 import { allPromiseFinish } from './utils/asyncUtil'
 import { defaultValidateMessages } from './utils/messages'
 import { cloneByNamePathList, containsNamePath, getNamePath, setValue } from './utils/valueUtil.ts'
+
 import { useValidateMessagesContext, useValidateMessagesProvider } from './validateMessagesContext.tsx'
 
 export type RequiredMark
@@ -62,7 +64,9 @@ export type FormClassNamesType = SemanticClassNamesType<FormProps, FormSemanticC
 
 export type FormStylesType = SemanticStylesType<FormProps, FormSemanticStyles>
 
-export interface FormProps extends ComponentBaseProps {
+export interface FormProps extends ComponentBaseProps,
+  /* @vue-ignore */
+  FormEmitsProps {
   classes?: FormClassNamesType
   styles?: FormStylesType
   colon?: boolean
@@ -97,6 +101,15 @@ export interface FormEmits {
   validate: (name: InternalNamePath, status: boolean, errors: any[] | null) => void
   valuesChange: (changedValues: Record<string, any>, values: Record<string, any>) => void
   fieldsChange: (changedFields: FieldData[], allFields: FieldData[]) => void
+}
+export interface FormEmitsProps {
+  onFinish?: FormEmits['finish']
+  onFinishFailed?: FormEmits['finishFailed']
+  onSubmit?: FormEmits['submit']
+  onReset?: FormEmits['reset']
+  onValidate?: FormEmits['validate']
+  onValuesChange?: FormEmits['valuesChange']
+  onFieldsChange?: FormEmits['fieldsChange']
 }
 
 export interface FormSlots {
@@ -174,6 +187,7 @@ const InternalForm = defineComponent<
     const mergedSize = useSize(size)
     const disabled = computed(() => props?.disabled ?? contextDisabled.value)
     const contextValidateMessages = useValidateMessagesContext()
+    const [formLocale] = useLocale('Form')
 
     const mergedRequiredMark = computed(() => {
       if (props.requiredMark !== undefined) {
@@ -194,6 +208,7 @@ const InternalForm = defineComponent<
     })
     const mergedValidateMessages = computed(() => ({
       ...defaultValidateMessages,
+      ...(formLocale?.value?.defaultValidateMessages || {}),
       ...(contextValidateMessages?.value || {}),
       ...(validateMessages.value || {}),
     }))
@@ -558,6 +573,7 @@ const InternalForm = defineComponent<
       validate: () => validateFields(),
       submit,
       nativeElement: nativeElementRef,
+      el: nativeElementRef,
       scrollToField: (name: NamePath, options: ScrollFocusOptions | boolean = {}) => {
         scrollToField(getNamePath(name), options)
       },
@@ -636,20 +652,20 @@ const InternalForm = defineComponent<
         mergedClassNames.value.root,
       )
       return (
-        <NoFormStyle status>
-          <form
-            id={name}
-            {...restAttrs}
-            name={name}
-            ref={nativeElementRef}
-            style={[mergedStyles.value.root, contextStyle.value, style]}
-            class={formClassName}
-            onSubmit={handleSubmit}
-            onReset={handleReset}
-          >
+        <form
+          id={name}
+          {...restAttrs}
+          name={name}
+          ref={nativeElementRef}
+          style={[mergedStyles.value.root, contextStyle.value, style]}
+          class={formClassName}
+          onSubmit={handleSubmit}
+          onReset={handleReset}
+        >
+          <NoFormStyle status>
             {slots?.default?.()}
-          </form>
-        </NoFormStyle>
+          </NoFormStyle>
+        </form>
       )
     }
   },

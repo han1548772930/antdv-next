@@ -179,20 +179,33 @@ export interface MenuEmits {
   'update:selectedKeys': (selectedKeys: string[]) => void
 }
 
+export interface MenuEmitsProps {
+  onClick?: MenuEmits['click']
+  onSelect?: MenuEmits['select']
+  onDeselect?: MenuEmits['deselect']
+  onOpenChange?: MenuEmits['openChange']
+  'onUpdate:openKeys'?: MenuEmits['update:openKeys']
+  'onUpdate:selectedKeys'?: MenuEmits['update:selectedKeys']
+}
+
 export interface MenuSlots {
   default: () => any
   expandIcon: () => any
-  labelRender: (item: RenderItem) => any
-  extraRender: (item: RenderItem) => any
+  labelRender?: (item: RenderItem) => any
+  extraRender?: (item: RenderItem) => any
   iconRender?: (item: RenderItem) => any
-  itemIcon: (props: MenuItemProps & RenderIconInfo) => any
+  itemIcon?: (props: MenuItemProps & RenderIconInfo) => any
 }
 
 const defaults = {
   theme: 'light',
 } as any
+interface InternalMenuRuntimeProps extends InternalMenuProps,
+  /* @vue-ignore */
+  MenuEmitsProps {}
+
 const InternalMenu = defineComponent<
-  InternalMenuProps,
+  InternalMenuRuntimeProps,
   MenuEmits,
   string,
   SlotsType<MenuSlots>
