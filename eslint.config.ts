@@ -7,6 +7,7 @@ const config = antfu(
     formatters: {
       css: true,
     },
+    e18e: false,
     pnpm: true,
     rules: {
       'jsdoc/empty-tags': 0,
